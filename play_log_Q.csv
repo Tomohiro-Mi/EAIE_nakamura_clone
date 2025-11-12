@@ -1,0 +1,1450 @@
+score,hand_length,action,result,reward,p_hand_1,p_hand_2,p_hand_is_nbj,p_hand_is_busted,d_hand_1,d_hand_length,money
+10,2,DOUBLE DOWN,win,40,33,40,False,False,32,1,9980
+14,2,RETRY,unsettled,-5,20,5,False,False,42,1,10020
+10,2,SURRENDER,surrendered,-10,20,27,False,False,42,1,10015
+6,2,RETRY,unsettled,-5,29,40,False,False,6,1,10005
+14,2,DOUBLE DOWN,bust,-40,29,36,False,False,6,1,10000
+9,2,DOUBLE DOWN,lose,-40,45,14,False,False,11,1,9960
+12,2,RETRY,unsettled,-5,44,5,False,False,49,1,9920
+15,2,DOUBLE DOWN,lose,-40,44,47,False,False,49,1,9915
+15,2,SURRENDER,surrendered,-10,32,33,False,False,23,1,9875
+14,2,RETRY,unsettled,-5,2,26,False,False,34,1,9865
+5,2,DOUBLE DOWN,lose,-40,2,14,False,False,34,1,9860
+21,2,STAND,win,30,25,0,True,False,17,1,9820
+19,2,HIT,bust,-20,21,12,False,False,49,1,9850
+13,2,RETRY,unsettled,-5,41,12,False,False,30,1,9830
+13,2,HIT,unsettled,0,41,9,False,False,30,1,9825
+14,3,STAND,lose,-20,41,9,False,False,30,1,9825
+19,2,SURRENDER,surrendered,-10,8,37,False,False,50,1,9805
+21,2,DOUBLE DOWN,draw,0,39,50,True,False,31,1,9795
+19,2,SURRENDER,surrendered,-10,35,8,False,False,22,1,9795
+15,2,SURRENDER,surrendered,-10,17,38,False,False,1,1,9785
+12,2,SURRENDER,surrendered,-10,40,51,False,False,42,1,9775
+15,2,HIT,unsettled,0,9,4,False,False,11,1,9765
+19,3,RETRY,unsettled,-5,9,4,False,False,11,1,9765
+18,3,STAND,win,20,9,4,False,False,11,1,9760
+20,2,SURRENDER,surrendered,-10,8,39,False,False,31,1,9780
+16,2,RETRY,unsettled,-5,36,5,False,False,7,1,9770
+17,2,SURRENDER,surrendered,-10,36,45,False,False,7,1,9765
+13,2,SURRENDER,surrendered,-10,1,0,False,False,33,1,9755
+17,2,DOUBLE DOWN,bust,-40,38,6,False,False,0,1,9745
+16,2,RETRY,unsettled,-5,5,50,False,False,7,1,9705
+13,2,HIT,bust,-20,5,45,False,False,7,1,9700
+15,2,DOUBLE DOWN,win,40,11,17,False,False,14,1,9680
+21,2,SURRENDER,surrendered,-10,0,25,True,False,43,1,9720
+9,2,STAND,lose,-20,28,5,False,False,40,1,9710
+16,2,RETRY,unsettled,-5,46,33,False,False,19,1,9690
+19,2,SURRENDER,surrendered,-10,46,26,False,False,19,1,9685
+7,2,STAND,lose,-20,2,16,False,False,30,1,9675
+16,2,HIT,unsettled,0,31,51,False,False,36,1,9655
+21,3,RETRY,bust,-25,31,51,False,False,36,1,9655
+16,2,SURRENDER,surrendered,-10,18,37,False,False,11,1,9630
+20,2,HIT,bust,-20,48,10,False,False,15,1,9620
+15,2,HIT,unsettled,0,33,19,False,False,41,1,9600
+19,3,STAND,win,20,33,19,False,False,41,1,9600
+12,2,HIT,unsettled,0,39,13,False,False,9,1,9620
+19,3,HIT,unsettled,0,39,13,False,False,9,1,9620
+18,4,SURRENDER,surrendered,-10,39,13,False,False,9,1,9620
+20,2,DOUBLE DOWN,win,40,9,25,False,False,10,1,9610
+13,2,STAND,win,20,22,2,False,False,44,1,9650
+18,2,STAND,lose,-20,8,21,False,False,39,1,9670
+13,2,SURRENDER,surrendered,-10,51,15,False,False,14,1,9650
+9,2,STAND,lose,-20,19,40,False,False,34,1,9640
+12,2,RETRY,unsettled,-5,14,50,False,False,11,1,9620
+7,2,HIT,unsettled,0,14,17,False,False,11,1,9615
+11,3,DOUBLE DOWN,win,40,14,17,False,False,11,1,9615
+16,2,HIT,bust,-20,25,44,False,False,46,1,9655
+13,2,DOUBLE DOWN,bust,-40,15,9,False,False,50,1,9635
+17,2,RETRY,unsettled,-5,47,7,False,False,27,1,9595
+14,2,SURRENDER,surrendered,-10,47,43,False,False,27,1,9590
+17,2,STAND,lose,-20,48,19,False,False,34,1,9580
+12,2,SURRENDER,surrendered,-10,41,21,False,False,4,1,9560
+14,2,HIT,unsettled,0,22,42,False,False,10,1,9550
+15,3,SURRENDER,surrendered,-10,22,42,False,False,10,1,9550
+15,2,SURRENDER,surrendered,-10,20,45,False,False,40,1,9540
+4,2,HIT,unsettled,0,27,1,False,False,23,1,9530
+12,3,HIT,bust,-20,27,1,False,False,23,1,9530
+19,2,RETRY,unsettled,-5,47,50,False,False,42,1,9510
+17,2,RETRY,unsettled,-5,47,33,False,False,42,1,9505
+19,2,SURRENDER,surrendered,-10,47,37,False,False,42,1,9500
+15,2,SURRENDER,surrendered,-10,16,0,False,False,31,1,9490
+18,2,SURRENDER,surrendered,-10,46,11,False,False,2,1,9480
+17,2,RETRY,unsettled,-5,32,38,False,False,29,1,9470
+17,2,HIT,unsettled,0,32,22,False,False,29,1,9465
+20,3,HIT,bust,-20,32,22,False,False,29,1,9465
+16,2,RETRY,unsettled,-5,26,43,False,False,17,1,9445
+20,2,RETRY,unsettled,-5,26,21,False,False,17,1,9440
+21,2,DOUBLE DOWN,win,40,26,51,True,False,17,1,9435
+18,2,SURRENDER,surrendered,-10,13,6,False,False,7,1,9475
+14,2,HIT,unsettled,0,17,34,False,False,8,1,9465
+16,3,DOUBLE DOWN,win,40,17,34,False,False,8,1,9465
+19,2,SURRENDER,surrendered,-10,47,9,False,False,48,1,9505
+16,2,SURRENDER,surrendered,-10,18,25,False,False,40,1,9495
+17,2,DOUBLE DOWN,win,40,45,35,False,False,5,1,9485
+12,2,STAND,lose,-20,19,4,False,False,35,1,9525
+14,2,HIT,bust,-20,44,46,False,False,45,1,9505
+14,2,RETRY,unsettled,-5,31,46,False,False,5,1,9485
+9,2,STAND,win,20,31,2,False,False,5,1,9480
+20,2,DOUBLE DOWN,lose,-40,13,34,False,False,36,1,9500
+14,2,RETRY,unsettled,-5,26,15,False,False,42,1,9460
+21,2,STAND,win,30,26,11,True,False,42,1,9455
+10,2,RETRY,unsettled,-5,32,28,False,False,30,1,9485
+17,2,SURRENDER,surrendered,-10,32,25,False,False,30,1,9480
+20,2,DOUBLE DOWN,bust,-40,49,24,False,False,29,1,9470
+11,2,HIT,unsettled,0,44,43,False,False,24,1,9430
+19,3,SURRENDER,surrendered,-10,44,43,False,False,24,1,9430
+19,2,RETRY,unsettled,-5,50,8,False,False,26,1,9420
+15,2,SURRENDER,surrendered,-10,50,4,False,False,26,1,9415
+4,2,SURRENDER,surrendered,-10,27,1,False,False,5,1,9405
+17,2,SURRENDER,surrendered,-10,22,45,False,False,36,1,9395
+20,2,DOUBLE DOWN,bust,-40,36,51,False,False,7,1,9385
+14,2,STAND,win,20,42,9,False,False,17,1,9345
+17,2,STAND,lose,-20,19,35,False,False,18,1,9365
+16,2,HIT,bust,-20,49,5,False,False,9,1,9345
+18,2,HIT,bust,-20,51,33,False,False,13,1,9325
+11,2,SURRENDER,surrendered,-10,14,21,False,False,37,1,9305
+15,2,HIT,unsettled,0,16,39,False,False,22,1,9295
+17,3,SURRENDER,surrendered,-10,16,39,False,False,22,1,9295
+12,2,HIT,bust,-20,41,34,False,False,50,1,9285
+9,2,DOUBLE DOWN,win,40,17,16,False,False,31,1,9265
+14,2,DOUBLE DOWN,lose,-40,15,26,False,False,0,1,9305
+11,2,STAND,win,20,4,18,False,False,26,1,9265
+13,2,HIT,bust,-20,15,23,False,False,7,1,9285
+12,2,SURRENDER,surrendered,-10,28,8,False,False,6,1,9265
+16,2,RETRY,unsettled,-5,47,45,False,False,29,1,9255
+19,2,DOUBLE DOWN,bust,-40,47,50,False,False,29,1,9250
+18,2,DOUBLE DOWN,win,40,0,19,False,False,1,1,9210
+15,2,DOUBLE DOWN,bust,-40,50,4,False,False,21,1,9250
+5,2,STAND,win,20,27,41,False,False,31,1,9210
+13,2,STAND,lose,-20,41,11,False,False,0,1,9230
+5,2,DOUBLE DOWN,win,40,14,2,False,False,3,1,9210
+16,2,STAND,win,20,43,26,False,False,2,1,9250
+13,2,RETRY,unsettled,-5,28,51,False,False,46,1,9270
+7,2,DOUBLE DOWN,lose,-40,28,29,False,False,46,1,9265
+14,2,RETRY,unsettled,-5,51,16,False,False,35,1,9225
+17,2,HIT,bust,-20,51,32,False,False,35,1,9220
+14,2,STAND,lose,-20,39,28,False,False,1,1,9200
+12,2,STAND,win,20,3,20,False,False,43,1,9180
+13,2,STAND,lose,-20,42,8,False,False,36,1,9200
+9,2,DOUBLE DOWN,lose,-40,15,18,False,False,44,1,9180
+10,2,HIT,unsettled,0,18,42,False,False,6,1,9140
+20,3,HIT,bust,-20,18,42,False,False,6,1,9140
+19,2,DOUBLE DOWN,bust,-40,38,34,False,False,5,1,9120
+16,2,RETRY,unsettled,-5,39,17,False,False,49,1,9080
+21,2,SURRENDER,surrendered,-10,39,12,True,False,49,1,9075
+8,2,STAND,lose,-20,3,3,False,False,27,1,9065
+20,2,DOUBLE DOWN,lose,-40,34,0,False,False,5,1,9045
+12,2,SURRENDER,surrendered,-10,27,12,False,False,31,1,9005
+13,2,HIT,unsettled,0,28,22,False,False,18,1,8995
+20,3,DOUBLE DOWN,bust,-40,28,22,False,False,18,1,8995
+16,2,DOUBLE DOWN,bust,-40,7,46,False,False,43,1,8955
+17,2,SURRENDER,surrendered,-10,32,12,False,False,5,1,8915
+19,2,HIT,bust,-20,37,8,False,False,25,1,8905
+17,2,STAND,draw,0,22,6,False,False,4,1,8885
+11,2,SURRENDER,surrendered,-10,14,8,False,False,31,1,8885
+21,2,STAND,win,30,39,48,True,False,19,1,8875
+8,2,SURRENDER,surrendered,-10,29,42,False,False,0,1,8905
+13,2,SURRENDER,surrendered,-10,0,14,False,False,9,1,8895
+13,2,STAND,lose,-20,30,7,False,False,28,1,8885
+19,2,DOUBLE DOWN,bust,-40,21,24,False,False,6,1,8865
+18,2,HIT,bust,-20,38,7,False,False,35,1,8825
+14,2,SURRENDER,surrendered,-10,13,2,False,False,23,1,8805
+6,2,HIT,unsettled,0,41,15,False,False,33,1,8795
+11,3,STAND,lose,-20,41,15,False,False,33,1,8795
+15,2,DOUBLE DOWN,bust,-40,19,46,False,False,27,1,8775
+13,2,DOUBLE DOWN,lose,-40,2,10,False,False,21,1,8735
+9,2,DOUBLE DOWN,win,40,3,4,False,False,51,1,8695
+19,2,DOUBLE DOWN,win,40,33,26,False,False,27,1,8735
+9,2,STAND,lose,-20,17,42,False,False,50,1,8775
+15,2,HIT,unsettled,0,29,13,False,False,48,1,8755
+13,3,HIT,unsettled,0,29,13,False,False,48,1,8755
+18,4,STAND,win,20,29,13,False,False,48,1,8755
+12,2,HIT,bust,-20,49,1,False,False,37,1,8775
+12,2,DOUBLE DOWN,lose,-40,9,14,False,False,24,1,8755
+19,2,SURRENDER,surrendered,-10,50,8,False,False,31,1,8715
+11,2,SURRENDER,surrendered,-10,40,8,False,False,7,1,8705
+20,2,SURRENDER,surrendered,-10,22,23,False,False,34,1,8695
+21,2,DOUBLE DOWN,lose,-40,51,0,True,False,30,1,8685
+10,2,RETRY,unsettled,-5,15,32,False,False,14,1,8645
+9,2,STAND,lose,-20,15,5,False,False,14,1,8640
+18,2,DOUBLE DOWN,bust,-40,21,34,False,False,38,1,8620
+13,2,HIT,unsettled,0,4,33,False,False,11,1,8580
+21,3,STAND,win,20,4,33,False,False,11,1,8580
+6,2,RETRY,unsettled,-5,1,3,False,False,26,1,8600
+12,2,DOUBLE DOWN,win,40,1,49,False,False,26,1,8595
+21,2,DOUBLE DOWN,lose,-40,37,13,True,False,39,1,8635
+20,2,HIT,bust,-20,48,23,False,False,21,1,8595
+18,2,STAND,lose,-20,24,20,False,False,35,1,8575
+12,2,SURRENDER,surrendered,-10,20,42,False,False,40,1,8555
+13,2,DOUBLE DOWN,bust,-40,15,10,False,False,51,1,8545
+19,2,RETRY,unsettled,-5,33,13,False,False,17,1,8505
+18,2,RETRY,unsettled,-5,33,22,False,False,17,1,8500
+15,2,STAND,win,20,33,45,False,False,17,1,8495
+13,2,RETRY,unsettled,-5,34,42,False,False,50,1,8515
+11,2,STAND,win,20,34,14,False,False,50,1,8510
+13,2,SURRENDER,surrendered,-10,9,15,False,False,4,1,8530
+18,2,RETRY,unsettled,-5,26,45,False,False,36,1,8520
+21,2,DOUBLE DOWN,win,40,26,11,True,False,36,1,8515
+14,2,RETRY,unsettled,-5,29,38,False,False,3,1,8555
+13,2,DOUBLE DOWN,bust,-40,29,8,False,False,3,1,8550
+19,2,RETRY,unsettled,-5,8,12,False,False,27,1,8510
+14,2,HIT,unsettled,0,8,30,False,False,27,1,8505
+20,3,STAND,win,20,8,30,False,False,27,1,8505
+17,2,DOUBLE DOWN,bust,-40,32,48,False,False,37,1,8525
+13,2,STAND,lose,-20,16,34,False,False,39,1,8485
+12,2,STAND,lose,-20,21,15,False,False,36,1,8465
+12,2,DOUBLE DOWN,win,40,4,45,False,False,40,1,8445
+17,2,SURRENDER,surrendered,-10,45,49,False,False,20,1,8485
+14,2,RETRY,unsettled,-5,29,23,False,False,15,1,8475
+7,2,RETRY,unsettled,-5,29,41,False,False,15,1,8470
+13,2,STAND,win,20,29,47,False,False,15,1,8465
+19,2,SURRENDER,surrendered,-10,51,47,False,False,41,1,8485
+17,2,HIT,bust,-20,9,32,False,False,25,1,8475
+20,2,STAND,win,20,38,48,False,False,27,1,8455
+15,2,STAND,lose,-20,8,31,False,False,50,1,8475
+20,2,STAND,win,20,10,50,False,False,17,1,8455
+20,2,DOUBLE DOWN,bust,-40,49,9,False,False,19,1,8475
+6,2,STAND,win,20,40,3,False,False,8,1,8435
+11,2,DOUBLE DOWN,draw,0,17,18,False,False,29,1,8455
+7,2,DOUBLE DOWN,lose,-40,1,43,False,False,24,1,8455
+17,2,STAND,lose,-20,46,34,False,False,33,1,8415
+21,2,RETRY,unsettled,-5,26,10,True,False,31,1,8395
+14,2,SURRENDER,surrendered,-10,26,2,False,False,31,1,8390
+18,2,HIT,bust,-20,47,21,False,False,17,1,8380
+21,2,SURRENDER,surrendered,-10,0,23,True,False,45,1,8360
+6,2,STAND,win,20,1,3,False,False,5,1,8350
+14,2,HIT,unsettled,0,16,25,False,False,30,1,8370
+19,3,DOUBLE DOWN,bust,-40,16,25,False,False,30,1,8370
+18,2,SURRENDER,surrendered,-10,34,21,False,False,49,1,8330
+13,2,RETRY,unsettled,-5,17,46,False,False,36,1,8320
+11,2,HIT,unsettled,0,17,5,False,False,36,1,8315
+13,3,SURRENDER,surrendered,-10,17,5,False,False,36,1,8315
+11,2,DOUBLE DOWN,lose,-40,8,40,False,False,35,1,8305
+11,2,DOUBLE DOWN,win,40,1,34,False,False,51,1,8265
+8,2,RETRY,unsettled,-5,16,42,False,False,27,1,8305
+9,2,STAND,win,20,16,4,False,False,27,1,8300
+13,2,SURRENDER,surrendered,-10,2,24,False,False,38,1,8320
+19,2,DOUBLE DOWN,draw,0,13,33,False,False,29,1,8310
+13,2,STAND,lose,-20,24,28,False,False,26,1,8310
+15,2,RETRY,unsettled,-5,7,19,False,False,22,1,8290
+18,2,RETRY,unsettled,-5,7,50,False,False,22,1,8285
+13,2,HIT,bust,-20,7,17,False,False,22,1,8280
+16,2,DOUBLE DOWN,lose,-40,9,5,False,False,51,1,8260
+17,2,STAND,win,20,10,32,False,False,48,1,8220
+12,2,STAND,win,20,45,4,False,False,42,1,8240
+9,2,SURRENDER,surrendered,-10,41,44,False,False,28,1,8260
+17,2,SURRENDER,surrendered,-10,6,9,False,False,12,1,8250
+10,2,RETRY,unsettled,-5,43,30,False,False,11,1,8240
+16,2,STAND,lose,-20,43,39,False,False,11,1,8235
+20,2,RETRY,unsettled,-5,24,35,False,False,45,1,8215
+15,2,STAND,lose,-20,24,30,False,False,45,1,8210
+18,2,RETRY,unsettled,-5,20,24,False,False,19,1,8190
+18,2,DOUBLE DOWN,bust,-40,20,51,False,False,19,1,8185
+19,2,RETRY,unsettled,-5,20,26,False,False,37,1,8145
+15,2,STAND,win,20,20,6,False,False,37,1,8140
+15,2,STAND,lose,-20,43,36,False,False,21,1,8160
+7,2,STAND,lose,-20,2,29,False,False,30,1,8140
+18,2,DOUBLE DOWN,bust,-40,33,22,False,False,2,1,8120
+14,2,DOUBLE DOWN,win,40,41,13,False,False,43,1,8080
+9,2,SURRENDER,surrendered,-10,30,3,False,False,44,1,8120
+12,2,DOUBLE DOWN,bust,-40,25,40,False,False,20,1,8110
+12,2,SURRENDER,surrendered,-10,23,27,False,False,11,1,8070
+16,2,SURRENDER,surrendered,-10,31,50,False,False,7,1,8060
+21,2,RETRY,unsettled,-5,39,12,True,False,32,1,8050
+21,2,SURRENDER,surrendered,-10,39,12,True,False,32,1,8045
+8,2,STAND,win,20,29,29,False,False,51,1,8035
+6,2,HIT,unsettled,0,41,28,False,False,6,1,8055
+12,3,RETRY,unsettled,-5,41,28,False,False,6,1,8055
+12,3,RETRY,unsettled,-5,41,28,False,False,6,1,8050
+11,3,HIT,unsettled,0,41,28,False,False,6,1,8045
+21,4,HIT,bust,-20,41,28,False,False,6,1,8045
+12,2,DOUBLE DOWN,lose,-40,42,20,False,False,5,1,8025
+13,2,STAND,lose,-20,46,4,False,False,22,1,7985
+9,2,DOUBLE DOWN,lose,-40,2,31,False,False,40,1,7965
+15,2,RETRY,unsettled,-5,39,3,False,False,10,1,7925
+19,2,RETRY,unsettled,-5,39,7,False,False,10,1,7920
+16,2,HIT,unsettled,0,39,43,False,False,10,1,7915
+15,3,SURRENDER,surrendered,-10,39,43,False,False,10,1,7915
+20,2,RETRY,unsettled,-5,23,24,False,False,45,1,7905
+14,2,RETRY,unsettled,-5,23,42,False,False,45,1,7900
+13,2,HIT,unsettled,0,23,15,False,False,45,1,7895
+20,3,DOUBLE DOWN,bust,-40,23,15,False,False,45,1,7895
+8,2,STAND,win,20,42,16,False,False,18,1,7855
+19,2,STAND,win,20,21,48,False,False,7,1,7875
+14,2,HIT,bust,-20,31,46,False,False,38,1,7895
+16,2,SURRENDER,surrendered,-10,30,0,False,False,0,1,7875
+14,2,RETRY,unsettled,-5,29,51,False,False,37,1,7865
+14,2,HIT,unsettled,0,29,25,False,False,37,1,7860
+21,3,SURRENDER,surrendered,-10,29,25,False,False,37,1,7860
+12,2,RETRY,unsettled,-5,21,41,False,False,11,1,7850
+19,2,DOUBLE DOWN,bust,-40,21,51,False,False,11,1,7845
+14,2,STAND,win,20,3,49,False,False,15,1,7805
+17,2,DOUBLE DOWN,draw,0,6,36,False,False,48,1,7825
+14,2,SURRENDER,surrendered,-10,46,18,False,False,0,1,7825
+15,2,STAND,lose,-20,21,31,False,False,41,1,7815
+6,2,SURRENDER,surrendered,-10,3,27,False,False,9,1,7795
+12,2,RETRY,unsettled,-5,11,27,False,False,25,1,7785
+20,2,DOUBLE DOWN,bust,-40,11,23,False,False,25,1,7780
+10,2,RETRY,unsettled,-5,28,45,False,False,43,1,7740
+13,2,HIT,unsettled,0,28,38,False,False,43,1,7735
+20,3,DOUBLE DOWN,bust,-40,28,38,False,False,43,1,7735
+17,2,RETRY,unsettled,-5,47,46,False,False,7,1,7695
+11,2,RETRY,unsettled,-5,47,40,False,False,7,1,7690
+19,2,DOUBLE DOWN,bust,-40,47,12,False,False,7,1,7685
+15,2,HIT,bust,-20,4,38,False,False,41,1,7645
+21,2,HIT,unsettled,0,39,9,True,False,35,1,7625
+21,3,HIT,bust,-20,39,9,False,False,35,1,7625
+18,2,STAND,lose,-20,47,34,False,False,4,1,7605
+14,2,HIT,unsettled,0,29,22,False,False,12,1,7585
+19,3,HIT,unsettled,0,29,22,False,False,12,1,7585
+20,4,STAND,win,20,29,22,False,False,12,1,7585
+13,2,RETRY,unsettled,-5,20,30,False,False,2,1,7605
+19,2,SURRENDER,surrendered,-10,20,39,False,False,2,1,7600
+12,2,DOUBLE DOWN,bust,-40,44,31,False,False,14,1,7590
+14,2,SURRENDER,surrendered,-10,16,23,False,False,35,1,7550
+12,2,STAND,win,20,13,26,False,False,30,1,7540
+16,2,DOUBLE DOWN,bust,-40,18,9,False,False,31,1,7560
+17,2,SURRENDER,surrendered,-10,7,21,False,False,50,1,7520
+15,2,SURRENDER,surrendered,-10,0,3,False,False,37,1,7510
+14,2,HIT,bust,-20,43,34,False,False,29,1,7500
+19,2,STAND,win,20,38,21,False,False,36,1,7480
+11,2,STAND,win,20,4,31,False,False,45,1,7500
+14,2,SURRENDER,surrendered,-10,3,35,False,False,24,1,7520
+14,2,SURRENDER,surrendered,-10,4,47,False,False,11,1,7510
+16,2,SURRENDER,surrendered,-10,33,20,False,False,32,1,7500
+11,2,STAND,win,20,19,16,False,False,40,1,7490
+8,2,STAND,win,20,43,41,False,False,1,1,7510
+13,2,STAND,lose,-20,50,15,False,False,22,1,7530
+21,2,SURRENDER,surrendered,-10,10,26,True,False,49,1,7510
+19,2,RETRY,unsettled,-5,47,50,False,False,29,1,7500
+17,2,STAND,lose,-20,47,33,False,False,29,1,7495
+21,2,DOUBLE DOWN,win,40,26,49,True,False,30,1,7475
+18,2,RETRY,unsettled,-5,13,45,False,False,28,1,7515
+14,2,RETRY,unsettled,-5,13,41,False,False,28,1,7510
+21,2,SURRENDER,surrendered,-10,13,12,True,False,28,1,7505
+20,2,STAND,win,20,35,48,False,False,17,1,7495
+12,2,HIT,unsettled,0,34,2,False,False,48,1,7515
+18,3,RETRY,unsettled,-5,34,2,False,False,48,1,7515
+15,3,RETRY,bust,-25,34,2,False,False,48,1,7510
+18,2,RETRY,unsettled,-5,33,36,False,False,13,1,7485
+18,2,RETRY,unsettled,-5,33,37,False,False,13,1,7480
+18,2,STAND,win,20,33,12,False,False,13,1,7475
+16,2,DOUBLE DOWN,bust,-40,44,37,False,False,41,1,7495
+16,2,HIT,unsettled,0,23,18,False,False,27,1,7455
+19,3,DOUBLE DOWN,bust,-40,23,18,False,False,27,1,7455
+11,2,HIT,unsettled,0,14,34,False,False,18,1,7415
+21,3,HIT,bust,-20,14,34,False,False,18,1,7415
+10,2,SURRENDER,surrendered,-10,3,5,False,False,26,1,7395
+20,2,STAND,win,20,8,0,False,False,46,1,7385
+17,2,SURRENDER,surrendered,-10,23,6,False,False,27,1,7405
+19,2,STAND,lose,-20,49,8,False,False,35,1,7395
+19,2,DOUBLE DOWN,bust,-40,11,34,False,False,42,1,7375
+16,2,HIT,unsettled,0,0,30,False,False,46,1,7335
+18,3,STAND,win,20,0,30,False,False,46,1,7335
+20,2,STAND,draw,0,50,9,False,False,39,1,7355
+9,2,STAND,lose,-20,28,18,False,False,19,1,7355
+5,2,SURRENDER,surrendered,-10,14,41,False,False,13,1,7335
+13,2,RETRY,unsettled,-5,4,33,False,False,21,1,7325
+11,2,STAND,win,20,4,5,False,False,21,1,7320
+15,2,HIT,bust,-20,11,43,False,False,45,1,7340
+16,2,STAND,lose,-20,35,44,False,False,38,1,7320
+21,2,SURRENDER,surrendered,-10,23,13,True,False,1,1,7300
+12,2,STAND,win,20,25,1,False,False,49,1,7290
+15,2,DOUBLE DOWN,win,40,24,17,False,False,18,1,7310
+11,2,STAND,lose,-20,43,31,False,False,22,1,7350
+17,2,SURRENDER,surrendered,-10,48,32,False,False,47,1,7330
+17,2,RETRY,unsettled,-5,45,38,False,False,32,1,7320
+11,2,HIT,unsettled,0,45,29,False,False,32,1,7315
+14,3,DOUBLE DOWN,win,40,45,29,False,False,32,1,7315
+16,2,RETRY,unsettled,-5,20,7,False,False,30,1,7355
+18,2,RETRY,unsettled,-5,20,24,False,False,30,1,7350
+10,2,RETRY,unsettled,-5,20,40,False,False,30,1,7345
+18,2,SURRENDER,surrendered,-10,20,36,False,False,30,1,7340
+13,2,SURRENDER,surrendered,-10,2,49,False,False,42,1,7330
+13,2,STAND,win,20,10,15,False,False,2,1,7320
+13,2,RETRY,unsettled,-5,13,1,False,False,43,1,7340
+21,2,DOUBLE DOWN,lose,-40,13,22,True,False,43,1,7335
+20,2,DOUBLE DOWN,bust,-40,38,50,False,False,5,1,7295
+20,2,HIT,bust,-20,38,24,False,False,33,1,7255
+15,2,SURRENDER,surrendered,-10,25,4,False,False,14,1,7235
+20,2,DOUBLE DOWN,bust,-40,51,35,False,False,7,1,7225
+18,2,RETRY,unsettled,-5,34,47,False,False,10,1,7185
+14,2,DOUBLE DOWN,win,40,34,30,False,False,10,1,7180
+16,2,HIT,bust,-20,22,31,False,False,34,1,7220
+15,2,RETRY,unsettled,-5,17,48,False,False,46,1,7200
+15,2,RETRY,unsettled,-5,17,48,False,False,46,1,7195
+11,2,RETRY,unsettled,-5,17,44,False,False,46,1,7190
+12,2,RETRY,unsettled,-5,17,19,False,False,46,1,7185
+9,2,SURRENDER,surrendered,-10,17,29,False,False,46,1,7180
+17,2,STAND,win,20,46,21,False,False,40,1,7170
+20,2,DOUBLE DOWN,bust,-40,9,12,False,False,39,1,7190
+13,2,STAND,win,20,28,12,False,False,15,1,7150
+7,2,SURRENDER,surrendered,-10,43,1,False,False,18,1,7170
+17,2,HIT,bust,-20,7,47,False,False,17,1,7160
+19,2,RETRY,unsettled,-5,8,37,False,False,29,1,7140
+16,2,DOUBLE DOWN,lose,-40,8,6,False,False,29,1,7135
+4,2,HIT,unsettled,0,1,27,False,False,26,1,7095
+6,3,DOUBLE DOWN,lose,-40,1,27,False,False,26,1,7095
+19,2,DOUBLE DOWN,bust,-40,38,47,False,False,0,1,7055
+15,2,SURRENDER,surrendered,-10,31,8,False,False,34,1,7015
+9,2,SURRENDER,surrendered,-10,3,17,False,False,41,1,7005
+13,2,RETRY,unsettled,-5,2,25,False,False,43,1,6995
+8,2,SURRENDER,surrendered,-10,2,43,False,False,43,1,6990
+16,2,HIT,unsettled,0,9,5,False,False,38,1,6980
+18,3,RETRY,bust,-25,9,5,False,False,38,1,6980
+16,2,RETRY,unsettled,-5,19,34,False,False,18,1,6955
+14,2,STAND,lose,-20,19,19,False,False,18,1,6950
+20,2,SURRENDER,surrendered,-10,39,47,False,False,36,1,6930
+16,2,RETRY,unsettled,-5,25,44,False,False,1,1,6920
+20,2,SURRENDER,surrendered,-10,25,35,False,False,1,1,6915
+17,2,RETRY,unsettled,-5,46,21,False,False,39,1,6905
+17,2,HIT,bust,-20,46,47,False,False,39,1,6900
+13,2,HIT,bust,-20,15,51,False,False,35,1,6880
+10,2,SURRENDER,surrendered,-10,31,3,False,False,37,1,6860
+20,2,HIT,bust,-20,12,36,False,False,17,1,6850
+14,2,STAND,win,20,30,34,False,False,5,1,6830
+5,2,RETRY,unsettled,-5,40,28,False,False,10,1,6850
+13,2,RETRY,unsettled,-5,40,26,False,False,10,1,6845
+12,2,RETRY,unsettled,-5,40,51,False,False,10,1,6840
+12,2,STAND,win,20,40,23,False,False,10,1,6835
+9,2,STAND,lose,-20,18,41,False,False,37,1,6855
+12,2,RETRY,unsettled,-5,23,40,False,False,50,1,6835
+14,2,DOUBLE DOWN,win,40,23,16,False,False,50,1,6830
+12,2,STAND,win,20,22,27,False,False,33,1,6870
+6,2,HIT,unsettled,0,3,1,False,False,43,1,6890
+16,3,DOUBLE DOWN,bust,-40,3,1,False,False,43,1,6890
+15,2,HIT,unsettled,0,43,25,False,False,26,1,6850
+17,3,SURRENDER,surrendered,-10,43,25,False,False,26,1,6850
+12,2,HIT,unsettled,0,28,8,False,False,4,1,6840
+19,3,STAND,lose,-20,28,8,False,False,4,1,6840
+15,2,SURRENDER,surrendered,-10,43,37,False,False,5,1,6820
+21,2,HIT,unsettled,0,0,51,True,False,48,1,6810
+21,3,RETRY,unsettled,-5,0,51,False,False,48,1,6810
+12,3,HIT,bust,-20,0,51,False,False,48,1,6805
+9,2,DOUBLE DOWN,draw,0,31,41,False,False,26,1,6785
+12,2,RETRY,unsettled,-5,11,27,False,False,21,1,6785
+13,2,STAND,lose,-20,11,28,False,False,21,1,6780
+11,2,HIT,unsettled,0,44,43,False,False,12,1,6760
+14,3,STAND,lose,-20,44,43,False,False,12,1,6760
+21,2,RETRY,unsettled,-5,13,49,True,False,17,1,6740
+19,2,SURRENDER,surrendered,-10,13,20,False,False,17,1,6735
+8,2,STAND,lose,-20,28,43,False,False,13,1,6725
+20,2,SURRENDER,surrendered,-10,12,9,False,False,37,1,6705
+19,2,RETRY,unsettled,-5,0,46,False,False,3,1,6695
+21,2,RETRY,unsettled,-5,0,35,True,False,3,1,6690
+20,2,DOUBLE DOWN,win,40,0,21,False,False,3,1,6685
+13,2,HIT,unsettled,0,5,19,False,False,2,1,6725
+14,3,STAND,lose,-20,5,19,False,False,2,1,6725
+12,2,SURRENDER,surrendered,-10,40,22,False,False,16,1,6705
+20,2,RETRY,unsettled,-5,26,8,False,False,14,1,6695
+21,2,DOUBLE DOWN,win,40,26,12,True,False,14,1,6690
+6,2,HIT,unsettled,0,27,42,False,False,23,1,6730
+16,3,STAND,lose,-20,27,42,False,False,23,1,6730
+14,2,HIT,bust,-20,22,29,False,False,44,1,6710
+14,2,RETRY,unsettled,-5,16,50,False,False,41,1,6690
+9,2,RETRY,unsettled,-5,16,17,False,False,41,1,6685
+12,2,STAND,lose,-20,16,20,False,False,41,1,6680
+20,2,STAND,win,20,38,48,False,False,18,1,6660
+18,2,DOUBLE DOWN,win,40,9,33,False,False,39,1,6680
+14,2,RETRY,unsettled,-5,8,43,False,False,6,1,6720
+19,2,DOUBLE DOWN,bust,-40,8,49,False,False,6,1,6715
+20,2,DOUBLE DOWN,bust,-40,25,24,False,False,42,1,6675
+16,2,SURRENDER,surrendered,-10,48,44,False,False,10,1,6635
+10,2,STAND,lose,-20,45,2,False,False,46,1,6625
+15,2,SURRENDER,surrendered,-10,43,23,False,False,23,1,6605
+15,2,RETRY,unsettled,-5,4,36,False,False,44,1,6595
+10,2,RETRY,unsettled,-5,4,17,False,False,44,1,6590
+14,2,SURRENDER,surrendered,-10,4,8,False,False,44,1,6585
+14,2,STAND,win,20,28,39,False,False,50,1,6575
+21,2,DOUBLE DOWN,lose,-40,11,13,True,False,7,1,6595
+5,2,SURRENDER,surrendered,-10,28,40,False,False,9,1,6555
+11,2,RETRY,unsettled,-5,29,19,False,False,36,1,6545
+7,2,STAND,lose,-20,29,15,False,False,36,1,6540
+14,2,SURRENDER,surrendered,-10,29,9,False,False,27,1,6520
+18,2,HIT,bust,-20,33,49,False,False,23,1,6510
+14,2,STAND,lose,-20,11,3,False,False,0,1,6490
+14,2,STAND,lose,-20,39,41,False,False,40,1,6470
+13,2,STAND,win,20,7,43,False,False,51,1,6450
+16,2,RETRY,unsettled,-5,5,35,False,False,10,1,6470
+9,2,SURRENDER,surrendered,-10,5,28,False,False,10,1,6465
+9,2,DOUBLE DOWN,lose,-40,45,40,False,False,42,1,6455
+19,2,HIT,unsettled,0,13,20,False,False,47,1,6415
+20,3,HIT,unsettled,0,13,20,False,False,47,1,6415
+20,4,DOUBLE DOWN,bust,-40,13,20,False,False,47,1,6415
+8,2,RETRY,unsettled,-5,14,44,False,False,33,1,6375
+10,2,RETRY,unsettled,-5,14,46,False,False,33,1,6370
+7,2,STAND,lose,-20,14,30,False,False,33,1,6365
+13,2,SURRENDER,surrendered,-10,2,12,False,False,37,1,6345
+11,2,STAND,win,20,45,16,False,False,24,1,6335
+14,2,STAND,lose,-20,42,48,False,False,43,1,6355
+19,2,STAND,win,20,0,20,False,False,15,1,6335
+11,2,RETRY,unsettled,-5,31,4,False,False,36,1,6355
+12,2,SURRENDER,surrendered,-10,31,18,False,False,36,1,6350
+18,2,SURRENDER,surrendered,-10,50,20,False,False,29,1,6340
+17,2,STAND,lose,-20,6,36,False,False,45,1,6330
+4,2,DOUBLE DOWN,lose,-40,27,27,False,False,18,1,6310
+19,2,SURRENDER,surrendered,-10,39,46,False,False,11,1,6270
+17,2,STAND,draw,0,47,33,False,False,25,1,6260
+13,2,RETRY,unsettled,-5,2,38,False,False,17,1,6260
+7,2,HIT,unsettled,0,2,29,False,False,17,1,6255
+9,3,RETRY,unsettled,-5,2,29,False,False,17,1,6255
+9,3,DOUBLE DOWN,win,40,2,29,False,False,17,1,6250
+20,2,STAND,win,20,9,23,False,False,18,1,6290
+13,2,STAND,lose,-20,49,15,False,False,22,1,6310
+20,2,RETRY,unsettled,-5,25,49,False,False,19,1,6290
+20,2,DOUBLE DOWN,bust,-40,25,10,False,False,19,1,6285
+14,2,SURRENDER,surrendered,-10,3,23,False,False,44,1,6245
+17,2,SURRENDER,surrendered,-10,34,46,False,False,51,1,6235
+20,2,RETRY,unsettled,-5,50,25,False,False,37,1,6225
+16,2,STAND,lose,-20,50,31,False,False,37,1,6220
+10,2,STAND,lose,-20,43,43,False,False,22,1,6200
+18,2,SURRENDER,surrendered,-10,12,46,False,False,42,1,6180
+20,2,SURRENDER,surrendered,-10,13,8,False,False,4,1,6170
+15,2,DOUBLE DOWN,lose,-40,30,50,False,False,34,1,6160
+8,2,RETRY,unsettled,-5,40,44,False,False,5,1,6120
+12,2,DOUBLE DOWN,win,40,40,11,False,False,5,1,6115
+8,2,SURRENDER,surrendered,-10,41,4,False,False,20,1,6155
+21,2,HIT,unsettled,0,36,0,True,False,21,1,6145
+15,3,SURRENDER,surrendered,-10,36,0,False,False,21,1,6145
+7,2,SURRENDER,surrendered,-10,41,16,False,False,12,1,6135
+9,2,SURRENDER,surrendered,-10,17,16,False,False,20,1,6125
+10,2,SURRENDER,surrendered,-10,5,42,False,False,35,1,6115
+12,2,RETRY,unsettled,-5,3,7,False,False,1,1,6105
+9,2,DOUBLE DOWN,lose,-40,3,30,False,False,1,1,6100
+13,2,STAND,lose,-20,49,41,False,False,35,1,6060
+15,2,RETRY,unsettled,-5,16,0,False,False,31,1,6040
+7,2,SURRENDER,surrendered,-10,16,15,False,False,31,1,6035
+16,2,STAND,lose,-20,31,25,False,False,13,1,6025
+19,2,RETRY,unsettled,-5,21,48,False,False,35,1,6005
+19,2,STAND,lose,-20,21,48,False,False,35,1,6000
+7,2,DOUBLE DOWN,lose,-40,41,3,False,False,49,1,5980
+15,2,SURRENDER,surrendered,-10,5,47,False,False,32,1,5940
+12,2,HIT,bust,-20,42,46,False,False,2,1,5930
+9,2,RETRY,unsettled,-5,28,44,False,False,39,1,5910
+11,2,RETRY,unsettled,-5,28,20,False,False,39,1,5905
+9,2,DOUBLE DOWN,lose,-40,28,44,False,False,39,1,5900
+20,2,HIT,bust,-20,37,10,False,False,15,1,5860
+18,2,RETRY,unsettled,-5,33,50,False,False,38,1,5840
+16,2,DOUBLE DOWN,bust,-40,33,7,False,False,38,1,5835
+21,2,HIT,unsettled,0,9,26,True,False,41,1,5795
+16,3,RETRY,unsettled,-5,9,26,False,False,41,1,5795
+15,3,DOUBLE DOWN,bust,-40,9,26,False,False,41,1,5790
+15,2,HIT,unsettled,0,49,30,False,False,2,1,5750
+16,3,RETRY,unsettled,-5,49,30,False,False,2,1,5750
+19,3,HIT,bust,-20,49,30,False,False,2,1,5745
+9,2,HIT,unsettled,0,4,16,False,False,8,1,5725
+13,3,DOUBLE DOWN,bust,-40,4,16,False,False,8,1,5725
+19,2,STAND,draw,0,9,8,False,False,43,1,5685
+15,2,RETRY,unsettled,-5,20,19,False,False,43,1,5685
+15,2,RETRY,unsettled,-5,20,6,False,False,43,1,5680
+13,2,HIT,bust,-20,20,30,False,False,43,1,5675
+12,2,HIT,unsettled,0,4,45,False,False,22,1,5655
+14,3,SURRENDER,surrendered,-10,4,45,False,False,22,1,5655
+15,2,DOUBLE DOWN,bust,-40,24,30,False,False,3,1,5645
+21,2,RETRY,unsettled,-5,36,26,True,False,12,1,5605
+13,2,DOUBLE DOWN,lose,-40,36,15,False,False,12,1,5600
+16,2,SURRENDER,surrendered,-10,22,18,False,False,18,1,5560
+13,2,DOUBLE DOWN,win,40,20,4,False,False,2,1,5550
+15,2,STAND,win,20,51,30,False,False,1,1,5590
+12,2,SURRENDER,surrendered,-10,6,4,False,False,17,1,5610
+12,2,SURRENDER,surrendered,-10,23,1,False,False,24,1,5600
+13,2,STAND,win,20,16,34,False,False,2,1,5590
+18,2,STAND,lose,-20,0,32,False,False,3,1,5610
+9,2,SURRENDER,surrendered,-10,29,30,False,False,5,1,5590
+16,2,STAND,lose,-20,47,19,False,False,12,1,5580
+8,2,RETRY,unsettled,-5,42,16,False,False,36,1,5560
+6,2,RETRY,unsettled,-5,42,40,False,False,36,1,5555
+14,2,SURRENDER,surrendered,-10,42,48,False,False,36,1,5550
+17,2,SURRENDER,surrendered,-10,31,39,False,False,22,1,5540
+21,2,HIT,unsettled,0,51,13,True,False,25,1,5530
+14,3,HIT,unsettled,0,51,13,False,False,25,1,5530
+15,4,HIT,bust,-20,51,13,False,False,25,1,5530
+17,2,DOUBLE DOWN,lose,-40,45,48,False,False,49,1,5510
+18,2,SURRENDER,surrendered,-10,33,10,False,False,6,1,5470
+18,2,RETRY,unsettled,-5,12,20,False,False,5,1,5460
+18,2,DOUBLE DOWN,bust,-40,12,20,False,False,5,1,5455
+20,2,DOUBLE DOWN,win,40,51,9,False,False,18,1,5415
+8,2,SURRENDER,surrendered,-10,3,42,False,False,8,1,5455
+11,2,HIT,unsettled,0,14,21,False,False,11,1,5445
+19,3,STAND,lose,-20,14,21,False,False,11,1,5445
+13,2,RETRY,unsettled,-5,41,50,False,False,39,1,5425
+6,2,SURRENDER,surrendered,-10,41,28,False,False,39,1,5420
+19,2,DOUBLE DOWN,bust,-40,47,25,False,False,46,1,5410
+13,2,HIT,unsettled,0,43,33,False,False,45,1,5370
+17,3,SURRENDER,surrendered,-10,43,33,False,False,45,1,5370
+11,2,HIT,unsettled,0,43,44,False,False,14,1,5360
+13,3,STAND,lose,-20,43,44,False,False,14,1,5360
+8,2,HIT,unsettled,0,30,15,False,False,29,1,5340
+12,3,STAND,lose,-20,30,15,False,False,29,1,5340
+17,2,SURRENDER,surrendered,-10,6,50,False,False,26,1,5320
+20,2,RETRY,unsettled,-5,26,47,False,False,5,1,5310
+16,2,HIT,unsettled,0,26,17,False,False,5,1,5305
+21,3,SURRENDER,surrendered,-10,26,17,False,False,5,1,5305
+8,2,RETRY,unsettled,-5,40,18,False,False,0,1,5295
+13,2,RETRY,unsettled,-5,40,13,False,False,0,1,5290
+12,2,DOUBLE DOWN,lose,-40,40,37,False,False,0,1,5285
+20,2,STAND,lose,-20,50,23,False,False,44,1,5245
+10,2,STAND,lose,-20,7,27,False,False,49,1,5225
+18,2,DOUBLE DOWN,bust,-40,7,25,False,False,3,1,5205
+10,2,SURRENDER,surrendered,-10,18,16,False,False,50,1,5165
+18,2,RETRY,unsettled,-5,47,8,False,False,22,1,5155
+12,2,DOUBLE DOWN,lose,-40,47,15,False,False,22,1,5150
+16,2,STAND,win,20,45,34,False,False,6,1,5110
+11,2,HIT,unsettled,0,31,4,False,False,28,1,5130
+21,3,SURRENDER,surrendered,-10,31,4,False,False,28,1,5130
+16,2,RETRY,unsettled,-5,10,31,False,False,28,1,5120
+12,2,RETRY,unsettled,-5,10,1,False,False,28,1,5115
+14,2,SURRENDER,surrendered,-10,10,29,False,False,28,1,5110
+18,2,RETRY,unsettled,-5,22,20,False,False,46,1,5100
+20,2,HIT,bust,-20,22,10,False,False,46,1,5095
+13,2,STAND,lose,-20,2,12,False,False,0,1,5075
+12,2,STAND,lose,-20,8,41,False,False,48,1,5055
+20,2,DOUBLE DOWN,bust,-40,25,35,False,False,48,1,5035
+20,2,RETRY,unsettled,-5,12,38,False,False,51,1,4995
+20,2,RETRY,unsettled,-5,12,36,False,False,51,1,4990
+18,2,STAND,lose,-20,12,33,False,False,51,1,4985
+17,2,RETRY,unsettled,-5,48,32,False,False,31,1,4965
+12,2,SURRENDER,surrendered,-10,48,27,False,False,31,1,4960
+19,2,DOUBLE DOWN,bust,-40,8,37,False,False,31,1,4950
+20,2,SURRENDER,surrendered,-10,23,36,False,False,21,1,4910
+14,2,STAND,lose,-20,51,3,False,False,5,1,4900
+17,2,STAND,win,20,18,0,False,False,26,1,4880
+10,2,RETRY,unsettled,-5,5,42,False,False,27,1,4900
+10,2,HIT,unsettled,0,5,16,False,False,27,1,4895
+20,3,DOUBLE DOWN,bust,-40,5,16,False,False,27,1,4895
+11,2,SURRENDER,surrendered,-10,41,20,False,False,4,1,4855
+20,2,RETRY,unsettled,-5,9,36,False,False,19,1,4845
+20,2,STAND,win,20,9,37,False,False,19,1,4840
+18,2,STAND,draw,0,6,13,False,False,45,1,4860
+14,2,STAND,lose,-20,3,22,False,False,51,1,4860
+20,2,DOUBLE DOWN,bust,-40,10,25,False,False,6,1,4840
+10,2,RETRY,unsettled,-5,19,28,False,False,18,1,4800
+10,2,STAND,lose,-20,19,2,False,False,18,1,4795
+19,2,DOUBLE DOWN,bust,-40,11,8,False,False,34,1,4775
+16,2,HIT,bust,-20,21,32,False,False,46,1,4735
+12,2,SURRENDER,surrendered,-10,23,14,False,False,14,1,4715
+16,2,HIT,unsettled,0,0,43,False,False,24,1,4705
+18,3,SURRENDER,surrendered,-10,0,43,False,False,24,1,4705
+10,2,HIT,unsettled,0,5,29,False,False,47,1,4695
+13,3,HIT,unsettled,0,5,29,False,False,47,1,4695
+18,4,DOUBLE DOWN,draw,0,5,29,False,False,47,1,4695
+14,2,SURRENDER,surrendered,-10,34,30,False,False,24,1,4695
+11,2,SURRENDER,surrendered,-10,42,45,False,False,12,1,4685
+5,2,SURRENDER,surrendered,-10,15,1,False,False,22,1,4675
+13,2,DOUBLE DOWN,lose,-40,13,1,False,False,47,1,4665
+14,2,DOUBLE DOWN,win,40,41,13,False,False,27,1,4625
+19,2,RETRY,unsettled,-5,22,34,False,False,14,1,4665
+13,2,SURRENDER,surrendered,-10,22,15,False,False,14,1,4660
+8,2,DOUBLE DOWN,lose,-40,40,18,False,False,14,1,4650
+15,2,STAND,win,20,30,37,False,False,47,1,4610
+19,2,HIT,bust,-20,36,34,False,False,50,1,4630
+16,2,HIT,bust,-20,5,48,False,False,6,1,4610
+20,2,RETRY,unsettled,-5,25,9,False,False,43,1,4590
+12,2,HIT,unsettled,0,25,14,False,False,43,1,4585
+16,3,STAND,lose,-20,25,14,False,False,43,1,4585
+9,2,HIT,unsettled,0,40,32,False,False,28,1,4565
+11,3,DOUBLE DOWN,win,40,40,32,False,False,28,1,4565
+15,2,HIT,unsettled,0,26,3,False,False,11,1,4605
+18,3,DOUBLE DOWN,win,40,26,3,False,False,11,1,4605
+12,2,STAND,win,20,6,4,False,False,1,1,4645
+20,2,HIT,unsettled,0,13,34,False,False,23,1,4665
+18,3,DOUBLE DOWN,bust,-40,13,34,False,False,23,1,4665
+19,2,RETRY,unsettled,-5,10,21,False,False,9,1,4625
+20,2,DOUBLE DOWN,bust,-40,10,50,False,False,9,1,4620
+15,2,DOUBLE DOWN,win,40,17,11,False,False,29,1,4580
+20,2,HIT,bust,-20,38,24,False,False,51,1,4620
+21,2,STAND,win,30,38,0,True,False,14,1,4600
+12,2,RETRY,unsettled,-5,20,16,False,False,0,1,4630
+18,2,DOUBLE DOWN,bust,-40,20,51,False,False,0,1,4625
+20,2,DOUBLE DOWN,bust,-40,22,10,False,False,39,1,4585
+13,2,SURRENDER,surrendered,-10,15,35,False,False,45,1,4545
+13,2,STAND,lose,-20,41,37,False,False,11,1,4535
+18,2,SURRENDER,surrendered,-10,36,33,False,False,45,1,4515
+12,2,RETRY,unsettled,-5,6,43,False,False,29,1,4505
+18,2,HIT,unsettled,0,6,39,False,False,29,1,4500
+16,3,HIT,bust,-20,6,39,False,False,29,1,4500
+15,2,STAND,lose,-20,12,30,False,False,46,1,4480
+14,2,SURRENDER,surrendered,-10,25,3,False,False,10,1,4460
+21,2,SURRENDER,surrendered,-10,26,50,True,False,44,1,4450
+12,2,RETRY,unsettled,-5,30,6,False,False,23,1,4440
+12,2,STAND,lose,-20,30,45,False,False,23,1,4435
+6,2,RETRY,unsettled,-5,15,28,False,False,31,1,4415
+7,2,STAND,lose,-20,15,16,False,False,31,1,4410
+16,2,RETRY,unsettled,-5,44,9,False,False,21,1,4390
+16,2,SURRENDER,surrendered,-10,44,22,False,False,21,1,4385
+14,2,STAND,win,20,49,29,False,False,0,1,4375
+18,2,STAND,win,20,33,12,False,False,35,1,4395
+14,2,SURRENDER,surrendered,-10,3,50,False,False,25,1,4415
+15,2,STAND,lose,-20,4,48,False,False,11,1,4405
+13,2,HIT,bust,-20,25,28,False,False,13,1,4385
+14,2,RETRY,unsettled,-5,5,7,False,False,14,1,4365
+16,2,HIT,unsettled,0,5,10,False,False,14,1,4360
+19,3,SURRENDER,surrendered,-10,5,10,False,False,14,1,4360
+20,2,STAND,draw,0,36,35,False,False,40,1,4350
+14,2,STAND,lose,-20,39,41,False,False,18,1,4350
+13,2,RETRY,unsettled,-5,31,19,False,False,27,1,4330
+13,2,STAND,lose,-20,31,6,False,False,27,1,4325
+17,2,DOUBLE DOWN,bust,-40,45,37,False,False,47,1,4305
+12,2,STAND,lose,-20,50,14,False,False,8,1,4265
+20,2,STAND,lose,-20,37,51,False,False,17,1,4245
+21,2,HIT,unsettled,0,35,26,True,False,10,1,4225
+14,3,RETRY,unsettled,-5,35,26,False,False,10,1,4225
+18,3,RETRY,unsettled,-5,35,26,False,False,10,1,4220
+21,3,STAND,win,20,35,26,False,False,10,1,4215
+11,2,RETRY,unsettled,-5,31,30,False,False,4,1,4235
+11,2,RETRY,unsettled,-5,31,43,False,False,4,1,4230
+14,2,SURRENDER,surrendered,-10,31,20,False,False,4,1,4225
+20,2,SURRENDER,surrendered,-10,22,37,False,False,23,1,4215
+13,2,SURRENDER,surrendered,-10,51,15,False,False,42,1,4205
+14,2,HIT,unsettled,0,12,42,False,False,38,1,4195
+21,3,DOUBLE DOWN,bust,-40,12,42,False,False,38,1,4195
+17,2,SURRENDER,surrendered,-10,45,24,False,False,36,1,4155
+12,2,DOUBLE DOWN,win,40,14,38,False,False,40,1,4145
+15,2,STAND,lose,-20,33,32,False,False,51,1,4185
+14,2,RETRY,unsettled,-5,48,3,False,False,4,1,4165
+18,2,HIT,bust,-20,48,46,False,False,4,1,4160
+20,2,HIT,bust,-20,23,12,False,False,6,1,4140
+11,2,HIT,unsettled,0,2,20,False,False,49,1,4120
+16,3,STAND,win,20,2,20,False,False,49,1,4120
+14,2,STAND,lose,-20,8,30,False,False,0,1,4140
+19,2,RETRY,unsettled,-5,33,26,False,False,39,1,4120
+19,2,HIT,unsettled,0,33,13,False,False,39,1,4115
+19,3,RETRY,unsettled,-5,33,13,False,False,39,1,4115
+19,3,HIT,bust,-20,33,13,False,False,39,1,4110
+13,2,SURRENDER,surrendered,-10,9,15,False,False,1,1,4090
+13,2,RETRY,unsettled,-5,24,2,False,False,47,1,4080
+20,2,STAND,win,20,24,11,False,False,47,1,4075
+21,2,HIT,unsettled,0,13,12,True,False,4,1,4095
+12,3,HIT,unsettled,0,13,12,False,False,4,1,4095
+19,4,STAND,win,20,13,12,False,False,4,1,4095
+9,2,SURRENDER,surrendered,-10,29,30,False,False,37,1,4115
+19,2,SURRENDER,surrendered,-10,8,37,False,False,34,1,4105
+17,2,SURRENDER,surrendered,-10,47,7,False,False,23,1,4095
+8,2,STAND,win,20,18,14,False,False,36,1,4085
+10,2,DOUBLE DOWN,lose,-40,40,20,False,False,7,1,4105
+12,2,STAND,lose,-20,22,27,False,False,39,1,4065
+16,2,SURRENDER,surrendered,-10,5,50,False,False,50,1,4045
+16,2,SURRENDER,surrendered,-10,18,25,False,False,48,1,4035
+14,2,STAND,lose,-20,33,31,False,False,20,1,4025
+21,2,STAND,win,30,13,23,True,False,38,1,4005
+9,2,STAND,lose,-20,44,28,False,False,11,1,4035
+12,2,STAND,lose,-20,46,29,False,False,10,1,4015
+12,2,HIT,unsettled,0,42,20,False,False,16,1,3995
+21,3,DOUBLE DOWN,bust,-40,42,20,False,False,16,1,3995
+12,2,DOUBLE DOWN,win,40,40,10,False,False,14,1,3955
+11,2,RETRY,unsettled,-5,18,43,False,False,41,1,3995
+11,2,SURRENDER,surrendered,-10,18,43,False,False,41,1,3990
+15,2,RETRY,unsettled,-5,30,36,False,False,2,1,3980
+15,2,DOUBLE DOWN,win,40,30,36,False,False,2,1,3975
+20,2,RETRY,unsettled,-5,49,12,False,False,8,1,4015
+20,2,SURRENDER,surrendered,-10,49,48,False,False,8,1,4010
+13,2,HIT,unsettled,0,8,29,False,False,28,1,4000
+19,3,RETRY,unsettled,-5,8,29,False,False,28,1,4000
+17,3,SURRENDER,surrendered,-10,8,29,False,False,28,1,3995
+12,2,RETRY,unsettled,-5,31,5,False,False,32,1,3985
+15,2,RETRY,unsettled,-5,31,34,False,False,32,1,3980
+16,2,STAND,win,20,31,37,False,False,32,1,3975
+17,2,SURRENDER,surrendered,-10,6,35,False,False,47,1,3995
+12,2,HIT,unsettled,0,23,40,False,False,13,1,3985
+19,3,DOUBLE DOWN,lose,-40,23,40,False,False,13,1,3985
+20,2,HIT,bust,-20,51,9,False,False,12,1,3945
+20,2,DOUBLE DOWN,lose,-40,39,47,False,False,1,1,3925
+15,2,HIT,bust,-20,50,30,False,False,4,1,3885
+20,2,HIT,bust,-20,48,38,False,False,9,1,3865
+4,2,STAND,lose,-20,40,14,False,False,8,1,3845
+14,2,SURRENDER,surrendered,-10,33,18,False,False,20,1,3825
+9,2,RETRY,unsettled,-5,15,5,False,False,0,1,3815
+8,2,STAND,lose,-20,15,43,False,False,0,1,3810
+14,2,STAND,lose,-20,4,47,False,False,36,1,3790
+17,2,RETRY,unsettled,-5,12,45,False,False,32,1,3770
+20,2,HIT,bust,-20,12,23,False,False,32,1,3765
+17,2,SURRENDER,surrendered,-10,10,45,False,False,30,1,3745
+21,2,HIT,unsettled,0,26,22,True,False,31,1,3735
+21,3,SURRENDER,surrendered,-10,26,22,False,False,31,1,3735
+18,2,STAND,lose,-20,33,9,False,False,37,1,3725
+12,2,RETRY,unsettled,-5,27,35,False,False,49,1,3705
+11,2,SURRENDER,surrendered,-10,27,8,False,False,49,1,3700
+12,2,STAND,lose,-20,48,14,False,False,5,1,3690
+14,2,HIT,unsettled,0,42,38,False,False,51,1,3670
+16,3,DOUBLE DOWN,lose,-40,42,38,False,False,51,1,3670
+9,2,HIT,unsettled,0,43,16,False,False,17,1,3630
+19,3,HIT,bust,-20,43,16,False,False,17,1,3630
+19,2,HIT,bust,-20,21,25,False,False,28,1,3610
+14,2,RETRY,unsettled,-5,50,29,False,False,25,1,3590
+12,2,STAND,lose,-20,50,14,False,False,25,1,3585
+18,2,DOUBLE DOWN,bust,-40,46,38,False,False,18,1,3565
+10,2,RETRY,unsettled,-5,42,44,False,False,1,1,3525
+15,2,RETRY,unsettled,-5,42,13,False,False,1,1,3520
+10,2,RETRY,unsettled,-5,42,31,False,False,1,1,3515
+10,2,SURRENDER,surrendered,-10,42,44,False,False,1,1,3510
+19,2,SURRENDER,surrendered,-10,26,7,False,False,35,1,3500
+14,2,HIT,bust,-20,18,20,False,False,2,1,3490
+11,2,STAND,win,20,15,33,False,False,27,1,3470
+7,2,HIT,unsettled,0,30,14,False,False,50,1,3490
+9,3,SURRENDER,surrendered,-10,30,14,False,False,50,1,3490
+15,2,SURRENDER,surrendered,-10,21,44,False,False,42,1,3480
+14,2,RETRY,unsettled,-5,47,43,False,False,23,1,3470
+13,2,DOUBLE DOWN,bust,-40,47,29,False,False,23,1,3465
+17,2,HIT,unsettled,0,19,24,False,False,4,1,3425
+20,3,HIT,bust,-20,19,24,False,False,4,1,3425
+12,2,DOUBLE DOWN,lose,-40,0,26,False,False,44,1,3405
+15,2,STAND,lose,-20,50,43,False,False,15,1,3365
+17,2,STAND,lose,-20,19,50,False,False,3,1,3345
+15,2,STAND,lose,-20,16,39,False,False,31,1,3325
+13,2,DOUBLE DOWN,lose,-40,13,40,False,False,38,1,3305
+13,2,DOUBLE DOWN,bust,-40,22,41,False,False,17,1,3265
+5,2,HIT,unsettled,0,2,14,False,False,17,1,3225
+14,3,DOUBLE DOWN,bust,-40,2,14,False,False,17,1,3225
+9,2,DOUBLE DOWN,draw,0,1,6,False,False,26,1,3185
+15,2,DOUBLE DOWN,win,40,29,39,False,False,3,1,3185
+7,2,SURRENDER,surrendered,-10,28,29,False,False,19,1,3225
+11,2,HIT,unsettled,0,44,4,False,False,18,1,3215
+21,3,SURRENDER,surrendered,-10,44,4,False,False,18,1,3215
+13,2,HIT,bust,-20,7,4,False,False,20,1,3205
+21,2,RETRY,unsettled,-5,0,36,True,False,45,1,3185
+13,2,RETRY,unsettled,-5,0,27,False,False,45,1,3180
+20,2,HIT,unsettled,0,0,21,False,False,45,1,3175
+20,3,HIT,bust,-20,0,21,False,False,45,1,3175
+18,2,SURRENDER,surrendered,-10,46,37,False,False,42,1,3155
+13,2,SURRENDER,surrendered,-10,51,41,False,False,47,1,3145
+15,2,STAND,lose,-20,23,30,False,False,31,1,3135
+12,2,RETRY,unsettled,-5,21,28,False,False,28,1,3115
+15,2,DOUBLE DOWN,draw,0,21,5,False,False,28,1,3110
+12,2,HIT,unsettled,0,40,38,False,False,14,1,3110
+20,3,DOUBLE DOWN,bust,-40,40,38,False,False,14,1,3110
+14,2,SURRENDER,surrendered,-10,11,16,False,False,51,1,3070
+9,2,HIT,unsettled,0,27,32,False,False,0,1,3060
+14,3,SURRENDER,surrendered,-10,27,32,False,False,0,1,3060
+10,2,RETRY,unsettled,-5,1,33,False,False,15,1,3050
+5,2,STAND,lose,-20,1,41,False,False,15,1,3045
+8,2,HIT,unsettled,0,5,1,False,False,39,1,3025
+11,3,HIT,unsettled,0,5,1,False,False,39,1,3025
+20,4,DOUBLE DOWN,bust,-40,5,1,False,False,39,1,3025
+13,2,RETRY,unsettled,-5,46,17,False,False,34,1,2985
+19,2,DOUBLE DOWN,lose,-40,46,0,False,False,34,1,2980
+17,2,STAND,draw,0,10,45,False,False,38,1,2940
+20,2,RETRY,unsettled,-5,24,37,False,False,19,1,2940
+18,2,STAND,lose,-20,24,33,False,False,19,1,2935
+18,2,RETRY,unsettled,-5,7,11,False,False,20,1,2915
+12,2,STAND,lose,-20,7,3,False,False,20,1,2910
+15,2,SURRENDER,surrendered,-10,4,48,False,False,26,1,2890
+17,2,DOUBLE DOWN,win,40,20,21,False,False,48,1,2880
+15,2,SURRENDER,surrendered,-10,11,17,False,False,9,1,2920
+17,2,SURRENDER,surrendered,-10,6,25,False,False,9,1,2910
+12,2,HIT,unsettled,0,50,14,False,False,35,1,2900
+17,3,RETRY,unsettled,-5,50,14,False,False,35,1,2900
+13,3,RETRY,bust,-25,50,14,False,False,35,1,2895
+13,2,DOUBLE DOWN,lose,-40,49,28,False,False,44,1,2870
+5,2,STAND,win,20,14,15,False,False,23,1,2830
+10,2,DOUBLE DOWN,win,40,5,16,False,False,8,1,2850
+11,2,HIT,unsettled,0,18,43,False,False,45,1,2890
+21,3,STAND,win,20,18,43,False,False,45,1,2890
+15,2,DOUBLE DOWN,bust,-40,17,48,False,False,49,1,2910
+20,2,DOUBLE DOWN,bust,-40,9,11,False,False,3,1,2870
+18,2,RETRY,unsettled,-5,37,7,False,False,39,1,2830
+20,2,DOUBLE DOWN,bust,-40,37,50,False,False,39,1,2825
+8,2,DOUBLE DOWN,lose,-40,43,28,False,False,32,1,2785
+19,2,RETRY,unsettled,-5,34,23,False,False,19,1,2745
+19,2,SURRENDER,surrendered,-10,34,12,False,False,19,1,2740
+15,2,HIT,bust,-20,6,20,False,False,27,1,2730
+11,2,HIT,unsettled,0,1,47,False,False,30,1,2710
+13,3,STAND,lose,-20,1,47,False,False,30,1,2710
+13,2,HIT,unsettled,0,15,22,False,False,24,1,2690
+14,3,DOUBLE DOWN,bust,-40,15,22,False,False,24,1,2690
+20,2,RETRY,unsettled,-5,13,8,False,False,35,1,2650
+21,2,SURRENDER,surrendered,-10,13,37,True,False,35,1,2645
+19,2,RETRY,unsettled,-5,33,39,False,False,50,1,2635
+18,2,STAND,lose,-20,33,11,False,False,50,1,2630
+13,2,DOUBLE DOWN,draw,0,16,21,False,False,30,1,2610
+17,2,RETRY,unsettled,-5,23,19,False,False,18,1,2610
+13,2,HIT,bust,-20,23,2,False,False,18,1,2605
+17,2,DOUBLE DOWN,bust,-40,45,23,False,False,38,1,2585
+13,2,HIT,unsettled,0,44,32,False,False,15,1,2545
+16,3,DOUBLE DOWN,bust,-40,44,32,False,False,15,1,2545
+18,2,DOUBLE DOWN,win,40,0,45,False,False,12,1,2505
+16,2,DOUBLE DOWN,bust,-40,49,5,False,False,25,1,2545
+16,2,HIT,unsettled,0,26,4,False,False,36,1,2505
+20,3,STAND,draw,0,26,4,False,False,36,1,2505
+18,2,STAND,win,20,49,46,False,False,28,1,2505
+16,2,SURRENDER,surrendered,-10,44,38,False,False,19,1,2525
+17,2,SURRENDER,surrendered,-10,26,18,False,False,17,1,2515
+12,2,RETRY,unsettled,-5,10,27,False,False,3,1,2505
+20,2,SURRENDER,surrendered,-10,10,51,False,False,3,1,2500
+17,2,STAND,draw,0,51,6,False,False,37,1,2490
+14,2,STAND,lose,-20,34,43,False,False,9,1,2490
+19,2,STAND,lose,-20,35,47,False,False,12,1,2470
+10,2,SURRENDER,surrendered,-10,1,46,False,False,33,1,2450
+18,2,HIT,bust,-20,10,20,False,False,31,1,2440
+19,2,SURRENDER,surrendered,-10,10,21,False,False,16,1,2420
+15,2,RETRY,unsettled,-5,38,43,False,False,46,1,2410
+13,2,SURRENDER,surrendered,-10,38,28,False,False,46,1,2405
+17,2,STAND,lose,-20,45,35,False,False,12,1,2395
+11,2,HIT,unsettled,0,6,42,False,False,43,1,2375
+12,3,SURRENDER,surrendered,-10,6,42,False,False,43,1,2375
+12,2,STAND,win,20,1,9,False,False,20,1,2365
+20,2,SURRENDER,surrendered,-10,22,36,False,False,5,1,2385
+10,2,STAND,win,20,7,1,False,False,8,1,2375
+8,2,RETRY,unsettled,-5,30,15,False,False,50,1,2395
+15,2,DOUBLE DOWN,lose,-40,30,48,False,False,50,1,2390
+12,2,SURRENDER,surrendered,-10,49,40,False,False,15,1,2350
+15,2,RETRY,unsettled,-5,29,39,False,False,9,1,2340
+13,2,SURRENDER,surrendered,-10,29,47,False,False,9,1,2335
+20,2,HIT,bust,-20,51,22,False,False,31,1,2325
+18,2,HIT,unsettled,0,6,0,False,False,32,1,2305
+14,3,STAND,lose,-20,6,0,False,False,32,1,2305
+13,2,SURRENDER,surrendered,-10,17,33,False,False,41,1,2285
+8,2,SURRENDER,surrendered,-10,14,18,False,False,49,1,2275
+20,2,SURRENDER,surrendered,-10,25,35,False,False,26,1,2265
+9,2,STAND,lose,-20,45,27,False,False,29,1,2255
+15,2,DOUBLE DOWN,bust,-40,4,11,False,False,12,1,2235
+12,2,SURRENDER,surrendered,-10,48,14,False,False,49,1,2195
+11,2,HIT,unsettled,0,16,45,False,False,34,1,2185
+19,3,STAND,win,20,16,45,False,False,34,1,2185
+16,2,HIT,unsettled,0,36,44,False,False,32,1,2205
+17,3,HIT,unsettled,0,36,44,False,False,32,1,2205
+18,4,RETRY,bust,-25,36,44,False,False,32,1,2205
+20,2,STAND,draw,0,11,9,False,False,50,1,2180
+6,2,RETRY,unsettled,-5,40,29,False,False,31,1,2180
+10,2,SURRENDER,surrendered,-10,40,7,False,False,31,1,2175
+7,2,DOUBLE DOWN,lose,-40,40,4,False,False,36,1,2165
+19,2,STAND,win,20,12,47,False,False,15,1,2125
+15,2,HIT,bust,-20,7,32,False,False,35,1,2145
+16,2,RETRY,unsettled,-5,36,44,False,False,15,1,2125
+20,2,DOUBLE DOWN,bust,-40,36,11,False,False,15,1,2120
+20,2,RETRY,unsettled,-5,0,34,False,False,48,1,2080
+12,2,RETRY,unsettled,-5,0,26,False,False,48,1,2075
+21,2,SURRENDER,surrendered,-10,0,37,True,False,48,1,2070
+18,2,HIT,unsettled,0,8,34,False,False,22,1,2060
+21,3,RETRY,bust,-25,8,34,False,False,22,1,2060
+19,2,STAND,win,20,46,39,False,False,42,1,2035
+8,2,STAND,lose,-20,18,27,False,False,49,1,2055
+18,2,DOUBLE DOWN,bust,-40,20,38,False,False,22,1,2035
+21,2,STAND,win,30,9,13,True,False,16,1,1995
+14,2,STAND,lose,-20,25,3,False,False,39,1,2025
+7,2,DOUBLE DOWN,lose,-40,1,17,False,False,43,1,2005
+15,2,HIT,bust,-20,24,4,False,False,17,1,1965
+21,2,DOUBLE DOWN,win,40,12,0,True,False,32,1,1945
+13,2,RETRY,unsettled,-5,6,31,False,False,20,1,1985
+18,2,DOUBLE DOWN,lose,-40,6,26,False,False,20,1,1980
+14,2,HIT,bust,-20,7,44,False,False,45,1,1940
+16,2,RETRY,unsettled,-5,5,37,False,False,39,1,1920
+15,2,RETRY,unsettled,-5,5,47,False,False,39,1,1915
+8,2,HIT,unsettled,0,5,14,False,False,39,1,1910
+10,3,SURRENDER,surrendered,-10,5,14,False,False,39,1,1910
+14,2,HIT,unsettled,0,15,0,False,False,21,1,1900
+15,3,HIT,unsettled,0,15,0,False,False,21,1,1900
+16,4,SURRENDER,surrendered,-10,15,0,False,False,21,1,1900
+8,2,RETRY,unsettled,-5,14,44,False,False,48,1,1890
+12,2,RETRY,unsettled,-5,14,51,False,False,48,1,1885
+11,2,STAND,lose,-20,14,34,False,False,48,1,1880
+12,2,DOUBLE DOWN,bust,-40,23,27,False,False,20,1,1860
+19,2,DOUBLE DOWN,bust,-40,11,21,False,False,34,1,1820
+7,2,DOUBLE DOWN,win,40,40,30,False,False,48,1,1780
+16,2,HIT,unsettled,0,43,0,False,False,31,1,1820
+20,3,DOUBLE DOWN,win,40,43,0,False,False,31,1,1820
+17,2,STAND,draw,0,35,19,False,False,45,1,1860
+11,2,STAND,lose,-20,1,8,False,False,30,1,1860
+21,2,RETRY,unsettled,-5,13,22,True,False,50,1,1840
+15,2,DOUBLE DOWN,lose,-40,13,16,False,False,50,1,1835
+16,2,STAND,lose,-20,33,46,False,False,25,1,1795
+14,2,DOUBLE DOWN,bust,-40,18,7,False,False,39,1,1775
+16,2,SURRENDER,surrendered,-10,43,39,False,False,18,1,1735
+20,2,DOUBLE DOWN,bust,-40,9,51,False,False,32,1,1725
+13,2,RETRY,unsettled,-5,47,29,False,False,42,1,1685
+20,2,RETRY,unsettled,-5,47,0,False,False,42,1,1680
+19,2,SURRENDER,surrendered,-10,47,11,False,False,42,1,1675
+13,2,HIT,unsettled,0,49,28,False,False,4,1,1665
+15,3,SURRENDER,surrendered,-10,49,28,False,False,4,1,1665
+17,2,RETRY,unsettled,-5,25,19,False,False,5,1,1655
+19,2,HIT,bust,-20,25,8,False,False,5,1,1650
+10,2,RETRY,unsettled,-5,28,6,False,False,18,1,1630
+10,2,HIT,unsettled,0,28,19,False,False,18,1,1625
+17,3,RETRY,unsettled,-5,28,19,False,False,18,1,1625
+20,3,RETRY,unsettled,-5,28,19,False,False,18,1,1620
+20,3,DOUBLE DOWN,bust,-40,28,19,False,False,18,1,1615
+13,2,SURRENDER,surrendered,-10,38,41,False,False,37,1,1575
+16,2,HIT,bust,-20,44,37,False,False,31,1,1565
+15,2,HIT,unsettled,0,4,23,False,False,0,1,1545
+20,3,SURRENDER,surrendered,-10,4,23,False,False,0,1,1545
+20,2,DOUBLE DOWN,bust,-40,50,48,False,False,29,1,1535
+9,2,STAND,lose,-20,28,31,False,False,34,1,1495
+15,2,SURRENDER,surrendered,-10,45,20,False,False,12,1,1475
+18,2,DOUBLE DOWN,lose,-40,19,0,False,False,15,1,1465
+20,2,STAND,win,20,35,11,False,False,17,1,1425
+16,2,HIT,unsettled,0,33,46,False,False,18,1,1445
+18,3,HIT,bust,-20,33,46,False,False,18,1,1445
+13,2,RETRY,unsettled,-5,7,17,False,False,41,1,1425
+18,2,HIT,bust,-20,7,23,False,False,41,1,1420
+9,2,RETRY,unsettled,-5,29,43,False,False,9,1,1400
+11,2,DOUBLE DOWN,lose,-40,29,45,False,False,9,1,1395
+12,2,DOUBLE DOWN,lose,-40,40,12,False,False,48,1,1355
+15,2,DOUBLE DOWN,draw,0,35,4,False,False,21,1,1315
+13,2,SURRENDER,surrendered,-10,15,37,False,False,38,1,1315
+8,2,HIT,unsettled,0,3,42,False,False,49,1,1305
+10,3,DOUBLE DOWN,win,40,3,42,False,False,49,1,1305
+20,2,RETRY,unsettled,-5,37,24,False,False,25,1,1345
+19,2,HIT,bust,-20,37,21,False,False,25,1,1340
+20,2,SURRENDER,surrendered,-10,25,23,False,False,1,1,1320
+18,2,DOUBLE DOWN,bust,-40,33,49,False,False,32,1,1310
+16,2,STAND,lose,-20,48,31,False,False,24,1,1270
+16,2,HIT,bust,-20,19,47,False,False,7,1,1250
+20,2,STAND,win,20,25,51,False,False,19,1,1230
+12,2,HIT,unsettled,0,36,14,False,False,44,1,1250
+19,3,DOUBLE DOWN,bust,-40,36,14,False,False,44,1,1250
+10,2,RETRY,unsettled,-5,4,30,False,False,40,1,1210
+13,2,SURRENDER,surrendered,-10,4,20,False,False,40,1,1205
+9,2,DOUBLE DOWN,win,40,14,45,False,False,33,1,1195
+16,2,RETRY,unsettled,-5,33,7,False,False,31,1,1235
+18,2,SURRENDER,surrendered,-10,33,11,False,False,31,1,1230
+13,2,DOUBLE DOWN,bust,-40,11,2,False,False,23,1,1220
+16,2,HIT,unsettled,0,37,44,False,False,1,1,1180
+19,3,RETRY,bust,-25,37,44,False,False,1,1,1180
+17,2,STAND,draw,0,13,18,False,False,28,1,1155
+15,2,STAND,lose,-20,12,17,False,False,26,1,1155
+14,2,DOUBLE DOWN,draw,0,29,25,False,False,15,1,1135
+13,2,HIT,unsettled,0,8,3,False,False,51,1,1135
+15,3,DOUBLE DOWN,lose,-40,8,3,False,False,51,1,1135
+6,2,STAND,win,20,42,27,False,False,45,1,1095
+21,2,SURRENDER,surrendered,-10,35,0,True,False,47,1,1115
+11,2,HIT,unsettled,0,21,27,False,False,32,1,1105
+18,3,SURRENDER,surrendered,-10,21,27,False,False,32,1,1105
+19,2,RETRY,unsettled,-5,51,47,False,False,43,1,1095
+20,2,HIT,bust,-20,51,50,False,False,43,1,1090
+11,2,RETRY,unsettled,-5,30,31,False,False,46,1,1070
+13,2,STAND,win,20,30,46,False,False,46,1,1065
+20,2,HIT,bust,-20,48,10,False,False,50,1,1085
+16,2,DOUBLE DOWN,bust,-40,18,36,False,False,17,1,1065
+10,2,SURRENDER,surrendered,-10,41,45,False,False,7,1,1025
+20,2,STAND,win,20,11,23,False,False,12,1,1015
+16,2,SURRENDER,surrendered,-10,50,44,False,False,47,1,1035
+7,2,HIT,unsettled,0,4,27,False,False,38,1,1025
+10,3,DOUBLE DOWN,draw,0,4,27,False,False,38,1,1025
+21,2,DOUBLE DOWN,lose,-40,22,13,True,False,22,1,1025
+17,2,DOUBLE DOWN,win,40,37,32,False,False,44,1,985
+10,2,STAND,lose,-20,46,27,False,False,34,1,1025
+15,2,RETRY,unsettled,-5,30,50,False,False,7,1,1005
+15,2,RETRY,unsettled,-5,30,36,False,False,7,1,1000
+8,2,SURRENDER,surrendered,-10,30,28,False,False,7,1,995
+10,2,RETRY,unsettled,-5,42,31,False,False,24,1,985
+9,2,DOUBLE DOWN,draw,0,42,17,False,False,24,1,980
+18,2,STAND,win,20,35,33,False,False,8,1,980
+19,2,HIT,unsettled,0,39,7,False,False,43,1,1000
+15,3,HIT,bust,-20,39,7,False,False,43,1,1000
+16,2,STAND,win,20,47,19,False,False,2,1,980
+15,2,HIT,unsettled,0,37,30,False,False,46,1,1000
+20,3,HIT,bust,-20,37,30,False,False,46,1,1000
+19,2,STAND,draw,0,47,22,False,False,39,1,980
+9,2,RETRY,unsettled,-5,6,14,False,False,10,1,980
+14,2,SURRENDER,surrendered,-10,6,6,False,False,10,1,975
+12,2,RETRY,unsettled,-5,40,48,False,False,17,1,965
+9,2,HIT,unsettled,0,40,32,False,False,17,1,960
+13,3,RETRY,unsettled,-5,40,32,False,False,17,1,960
+16,3,SURRENDER,surrendered,-10,40,32,False,False,17,1,955
+18,2,DOUBLE DOWN,bust,-40,21,21,False,False,16,1,945
+12,2,HIT,unsettled,0,1,23,False,False,43,1,905
+18,3,HIT,bust,-20,1,23,False,False,43,1,905
+17,2,RETRY,unsettled,-5,38,45,False,False,11,1,885
+20,2,SURRENDER,surrendered,-10,38,36,False,False,11,1,880
+19,2,RETRY,unsettled,-5,13,33,False,False,37,1,870
+16,2,HIT,unsettled,0,13,17,False,False,37,1,865
+16,3,STAND,win,20,13,17,False,False,37,1,865
+15,2,RETRY,unsettled,-5,22,43,False,False,39,1,885
+20,2,STAND,lose,-20,22,24,False,False,39,1,880
+15,2,RETRY,unsettled,-5,4,48,False,False,30,1,860
+16,2,SURRENDER,surrendered,-10,4,26,False,False,30,1,855
+10,2,STAND,lose,-20,27,33,False,False,7,1,845
+7,2,DOUBLE DOWN,win,40,3,28,False,False,3,1,825
+14,2,RETRY,unsettled,-5,4,8,False,False,1,1,865
+14,2,RETRY,unsettled,-5,4,21,False,False,1,1,860
+15,2,STAND,lose,-20,4,51,False,False,1,1,855
+10,2,HIT,unsettled,0,32,2,False,False,5,1,835
+17,3,DOUBLE DOWN,win,40,32,2,False,False,5,1,835
+9,2,SURRENDER,surrendered,-10,42,4,False,False,0,1,875
+14,2,STAND,lose,-20,49,3,False,False,26,1,865
+19,2,SURRENDER,surrendered,-10,36,47,False,False,1,1,845
+13,2,SURRENDER,surrendered,-10,28,10,False,False,32,1,835
+17,2,STAND,lose,-20,19,12,False,False,9,1,825
+14,2,SURRENDER,surrendered,-10,45,19,False,False,27,1,805
+17,2,HIT,bust,-20,45,38,False,False,40,1,795
+21,2,SURRENDER,surrendered,-10,39,36,True,False,46,1,775
+21,2,HIT,unsettled,0,51,39,True,False,13,1,765
+13,3,HIT,bust,-20,51,39,False,False,13,1,765
+16,2,RETRY,unsettled,-5,6,34,False,False,3,1,745
+13,2,HIT,unsettled,0,6,18,False,False,3,1,740
+21,3,HIT,bust,-20,6,18,False,False,3,1,740
+18,2,SURRENDER,surrendered,-10,13,32,False,False,1,1,720
+15,2,HIT,bust,-20,18,47,False,False,50,1,710
+20,2,SURRENDER,surrendered,-10,25,35,False,False,25,1,690
+15,2,RETRY,unsettled,-5,10,4,False,False,30,1,680
+14,2,HIT,bust,-20,10,16,False,False,30,1,675
+13,2,STAND,lose,-20,41,37,False,False,11,1,655
+18,2,SURRENDER,surrendered,-10,49,7,False,False,31,1,635
+8,2,RETRY,unsettled,-5,28,17,False,False,41,1,625
+13,2,SURRENDER,surrendered,-10,28,36,False,False,41,1,620
+20,2,SURRENDER,surrendered,-10,12,38,False,False,5,1,610
+14,2,HIT,unsettled,0,41,26,False,False,33,1,600
+18,3,HIT,unsettled,0,41,26,False,False,33,1,600
+16,4,STAND,lose,-20,41,26,False,False,33,1,600
+12,2,SURRENDER,surrendered,-10,33,3,False,False,45,1,580
+11,2,SURRENDER,surrendered,-10,6,3,False,False,18,1,570
+10,2,STAND,lose,-20,33,27,False,False,1,1,560
+15,2,STAND,win,20,4,10,False,False,36,1,540
+17,2,RETRY,unsettled,-5,13,5,False,False,34,1,560
+21,2,STAND,win,30,13,12,True,False,34,1,555
+20,2,DOUBLE DOWN,bust,-40,10,48,False,False,38,1,585
+17,2,SURRENDER,surrendered,-10,51,19,False,False,39,1,545
+15,2,HIT,bust,-20,46,45,False,False,16,1,535
+20,2,RETRY,unsettled,-5,22,38,False,False,40,1,515
+21,2,SURRENDER,surrendered,-10,22,26,True,False,40,1,510
+16,2,HIT,bust,-20,25,18,False,False,46,1,500
+17,2,DOUBLE DOWN,bust,-40,49,45,False,False,35,1,480
+12,2,DOUBLE DOWN,bust,-40,29,7,False,False,21,1,440
+11,2,HIT,unsettled,0,42,32,False,False,47,1,400
+17,3,DOUBLE DOWN,win,40,42,32,False,False,47,1,400
+6,2,DOUBLE DOWN,lose,-40,15,41,False,False,37,1,440
+9,2,STAND,lose,-20,28,5,False,False,36,1,400
+17,2,RETRY,unsettled,-5,32,49,False,False,2,1,380
+17,2,SURRENDER,surrendered,-10,32,22,False,False,2,1,375
+11,2,DOUBLE DOWN,lose,-40,14,8,False,False,27,1,365
+15,2,DOUBLE DOWN,lose,-40,43,49,False,False,7,1,325
+12,2,DOUBLE DOWN,lose,-40,8,28,False,False,21,1,285
+20,2,SURRENDER,surrendered,-10,25,12,False,False,0,1,245
+12,2,HIT,unsettled,0,23,1,False,False,48,1,235
+13,3,SURRENDER,surrendered,-10,23,1,False,False,48,1,235
+10,2,HIT,unsettled,0,3,18,False,False,0,1,225
+12,3,STAND,lose,-20,3,18,False,False,0,1,225
+12,2,STAND,lose,-20,40,22,False,False,47,1,205
+9,2,STAND,lose,-20,17,29,False,False,45,1,185
+12,2,SURRENDER,surrendered,-10,34,28,False,False,35,1,165
+11,2,RETRY,unsettled,-5,28,33,False,False,5,1,155
+5,2,SURRENDER,surrendered,-10,28,27,False,False,5,1,150
+17,2,RETRY,unsettled,-5,20,8,False,False,19,1,140
+16,2,HIT,unsettled,0,20,20,False,False,19,1,135
+17,3,RETRY,bust,-25,20,20,False,False,19,1,135
+14,2,STAND,win,20,39,15,False,False,46,1,110
+21,2,SURRENDER,surrendered,-10,36,39,True,False,30,1,130
+16,2,HIT,bust,-20,19,8,False,False,16,1,120
+15,2,RETRY,unsettled,-5,11,43,False,False,35,1,100
+20,2,DOUBLE DOWN,bust,-40,11,11,False,False,35,1,95
+17,2,STAND,win,20,0,18,False,False,31,1,55
+4,2,STAND,lose,-20,14,1,False,False,13,1,75
+21,2,DOUBLE DOWN,win,40,24,26,True,False,44,1,55
+7,2,DOUBLE DOWN,win,40,2,3,False,False,45,1,95
+14,2,HIT,bust,-20,21,30,False,False,7,1,135
+18,2,STAND,draw,0,38,33,False,False,1,1,115
+20,2,SURRENDER,surrendered,-10,36,10,False,False,14,1,115
+12,2,SURRENDER,surrendered,-10,46,29,False,False,13,1,105
+21,2,STAND,win,30,39,22,True,False,19,1,95
+13,2,DOUBLE DOWN,bust,-40,15,35,False,False,5,1,125
+7,2,RETRY,unsettled,-5,27,4,False,False,25,1,85
+12,2,DOUBLE DOWN,win,40,27,23,False,False,25,1,80
+17,2,HIT,unsettled,0,26,44,False,False,31,1,120
+17,3,DOUBLE DOWN,bust,-40,26,44,False,False,31,1,120
+19,2,HIT,bust,-20,8,48,False,False,7,1,80
+18,2,RETRY,unsettled,-5,24,33,False,False,12,1,60
+17,2,HIT,bust,-20,24,19,False,False,12,1,55
+17,2,STAND,win,20,18,0,False,False,6,1,35
+20,2,SURRENDER,surrendered,-10,9,22,False,False,30,1,55
+19,2,SURRENDER,surrendered,-10,39,46,False,False,27,1,45
+13,2,STAND,win,20,24,41,False,False,4,1,35
+12,2,SURRENDER,surrendered,-10,16,20,False,False,32,1,55
+17,2,STAND,lose,-20,38,32,False,False,36,1,45
+13,2,STAND,lose,-20,1,0,False,False,51,1,25
+4,2,HIT,unsettled,0,14,40,False,False,47,1,5
+13,3,RETRY,unsettled,-5,14,40,False,False,47,1,5
+7,3,HIT,unsettled,0,14,40,False,False,47,1,0
+11,4,HIT,unsettled,0,14,40,False,False,47,1,0
+14,5,DOUBLE DOWN,win,40,14,40,False,False,47,1,0
+11,2,STAND,lose,-20,28,20,False,False,19,1,40
+15,2,HIT,bust,-20,43,11,False,False,17,1,20
+12,2,DOUBLE DOWN,lose,-40,20,16,False,False,28,1,0
+14,2,STAND,lose,-20,43,47,False,False,1,1,-40
+14,2,HIT,bust,-20,22,3,False,False,47,1,-60
+13,2,STAND,win,20,27,26,False,False,1,1,-80
+13,2,HIT,unsettled,0,20,17,False,False,24,1,-60
+14,3,RETRY,bust,-25,20,17,False,False,24,1,-60
+10,2,RETRY,unsettled,-5,17,30,False,False,46,1,-85
+15,2,DOUBLE DOWN,bust,-40,17,23,False,False,46,1,-90
+18,2,SURRENDER,surrendered,-10,7,9,False,False,30,1,-130
+15,2,SURRENDER,surrendered,-10,35,43,False,False,26,1,-140
+20,2,STAND,win,20,36,48,False,False,13,1,-150
+17,2,STAND,lose,-20,32,24,False,False,43,1,-130
+18,2,SURRENDER,surrendered,-10,11,20,False,False,37,1,-150
+13,2,HIT,bust,-20,2,48,False,False,21,1,-160
+11,2,DOUBLE DOWN,lose,-40,32,16,False,False,39,1,-180
+8,2,SURRENDER,surrendered,-10,44,14,False,False,21,1,-220
+15,2,RETRY,unsettled,-5,45,46,False,False,27,1,-230
+11,2,RETRY,unsettled,-5,45,42,False,False,27,1,-235
+17,2,HIT,bust,-20,45,35,False,False,27,1,-240
+14,2,STAND,lose,-20,25,16,False,False,1,1,-260
+20,2,HIT,bust,-20,10,9,False,False,27,1,-280
+16,2,STAND,lose,-20,45,34,False,False,4,1,-300
+20,2,DOUBLE DOWN,bust,-40,49,22,False,False,42,1,-320
+14,2,SURRENDER,surrendered,-10,38,3,False,False,5,1,-360
+16,2,SURRENDER,surrendered,-10,25,31,False,False,47,1,-370
+5,2,DOUBLE DOWN,win,40,28,27,False,False,15,1,-380
+9,2,DOUBLE DOWN,draw,0,30,42,False,False,24,1,-340
+13,2,HIT,bust,-20,19,5,False,False,41,1,-340
+15,2,DOUBLE DOWN,win,40,51,4,False,False,41,1,-360
+17,2,DOUBLE DOWN,bust,-40,49,19,False,False,29,1,-320
+13,2,STAND,win,20,29,8,False,False,3,1,-360
+15,2,STAND,lose,-20,18,34,False,False,30,1,-340
+12,2,SURRENDER,surrendered,-10,27,51,False,False,22,1,-360
+4,2,RETRY,unsettled,-5,14,40,False,False,0,1,-370
+8,2,DOUBLE DOWN,lose,-40,14,31,False,False,0,1,-375
+15,2,RETRY,unsettled,-5,16,26,False,False,26,1,-415
+14,2,SURRENDER,surrendered,-10,16,38,False,False,26,1,-420
+21,2,RETRY,unsettled,-5,39,11,True,False,1,1,-430
+21,2,STAND,win,30,39,38,True,False,1,1,-435
+13,2,STAND,win,20,2,23,False,False,31,1,-405
+18,2,DOUBLE DOWN,win,40,39,32,False,False,27,1,-385
+6,2,DOUBLE DOWN,lose,-40,28,41,False,False,20,1,-345
+21,2,DOUBLE DOWN,win,40,13,48,True,False,42,1,-385
+12,2,RETRY,unsettled,-5,3,7,False,False,8,1,-345
+8,2,RETRY,unsettled,-5,3,29,False,False,8,1,-350
+6,2,STAND,lose,-20,3,1,False,False,8,1,-355
+13,2,HIT,bust,-20,19,44,False,False,32,1,-375
+15,2,RETRY,unsettled,-5,6,33,False,False,42,1,-395
+16,2,HIT,bust,-20,6,21,False,False,42,1,-400
+19,2,HIT,bust,-20,48,21,False,False,43,1,-420
+14,2,RETRY,unsettled,-5,49,29,False,False,2,1,-440
+20,2,HIT,bust,-20,49,49,False,False,2,1,-445
+20,2,DOUBLE DOWN,bust,-40,11,24,False,False,46,1,-465
+11,2,DOUBLE DOWN,lose,-40,40,47,False,False,16,1,-505
+19,2,SURRENDER,surrendered,-10,47,38,False,False,31,1,-545
+19,2,SURRENDER,surrendered,-10,21,51,False,False,39,1,-555
+21,2,RETRY,unsettled,-5,13,23,True,False,12,1,-565
+13,2,HIT,unsettled,0,13,14,False,False,12,1,-570
+13,3,DOUBLE DOWN,lose,-40,13,14,False,False,12,1,-570
+20,2,SURRENDER,surrendered,-10,11,35,False,False,41,1,-610
+12,2,HIT,bust,-20,2,21,False,False,30,1,-620
+11,2,STAND,lose,-20,30,44,False,False,50,1,-640
+20,2,RETRY,unsettled,-5,47,39,False,False,4,1,-660
+16,2,STAND,lose,-20,47,19,False,False,4,1,-665
+19,2,STAND,win,20,33,26,False,False,40,1,-685
+17,2,RETRY,unsettled,-5,24,32,False,False,1,1,-665
+14,2,STAND,win,20,24,16,False,False,1,1,-670
+20,2,STAND,win,20,11,24,False,False,13,1,-650
+12,2,HIT,unsettled,0,29,20,False,False,9,1,-630
+17,3,SURRENDER,surrendered,-10,29,20,False,False,9,1,-630
+13,2,DOUBLE DOWN,win,40,28,38,False,False,33,1,-640
+17,2,RETRY,unsettled,-5,51,6,False,False,23,1,-600
+17,2,SURRENDER,surrendered,-10,51,32,False,False,23,1,-605
+12,2,STAND,lose,-20,27,22,False,False,34,1,-615
+18,2,STAND,lose,-20,23,7,False,False,47,1,-635
+20,2,STAND,win,20,10,51,False,False,16,1,-655
+7,2,HIT,unsettled,0,3,15,False,False,25,1,-635
+17,3,RETRY,unsettled,-5,3,15,False,False,25,1,-635
+17,3,SURRENDER,surrendered,-10,3,15,False,False,25,1,-640
+14,2,HIT,bust,-20,25,42,False,False,4,1,-650
+8,2,STAND,lose,-20,31,40,False,False,7,1,-670
+21,2,HIT,unsettled,0,39,37,True,False,35,1,-690
+16,3,SURRENDER,surrendered,-10,39,37,False,False,35,1,-690
+14,2,RETRY,unsettled,-5,22,16,False,False,25,1,-700
+16,2,STAND,lose,-20,22,18,False,False,25,1,-705
+14,2,STAND,lose,-20,16,10,False,False,35,1,-725
+13,2,SURRENDER,surrendered,-10,33,43,False,False,12,1,-745
+21,2,RETRY,unsettled,-5,24,26,True,False,6,1,-755
+19,2,HIT,bust,-20,24,34,False,False,6,1,-760
+12,2,SURRENDER,surrendered,-10,24,40,False,False,31,1,-780
+16,2,STAND,win,20,23,44,False,False,43,1,-790
+7,2,HIT,unsettled,0,4,1,False,False,35,1,-770
+13,3,STAND,lose,-20,4,1,False,False,35,1,-770
+12,2,DOUBLE DOWN,win,40,39,39,False,False,25,1,-790
+17,2,SURRENDER,surrendered,-10,19,48,False,False,31,1,-750
+20,2,HIT,bust,-20,9,38,False,False,46,1,-760
+18,2,SURRENDER,surrendered,-10,20,11,False,False,13,1,-780
+12,2,RETRY,unsettled,-5,17,32,False,False,45,1,-790
+11,2,DOUBLE DOWN,lose,-40,17,18,False,False,45,1,-795
+15,2,SURRENDER,surrendered,-10,6,33,False,False,3,1,-835
+14,2,RETRY,unsettled,-5,3,10,False,False,18,1,-845
+7,2,HIT,unsettled,0,3,28,False,False,18,1,-850
+11,3,DOUBLE DOWN,win,40,3,28,False,False,18,1,-850
+20,2,RETRY,unsettled,-5,50,48,False,False,29,1,-810
+17,2,RETRY,unsettled,-5,50,19,False,False,29,1,-815
+18,2,SURRENDER,surrendered,-10,50,7,False,False,29,1,-820
+14,2,STAND,win,20,16,9,False,False,15,1,-830
+19,2,HIT,bust,-20,37,8,False,False,42,1,-810
+6,2,SURRENDER,surrendered,-10,14,3,False,False,17,1,-830
+18,2,DOUBLE DOWN,bust,-40,20,9,False,False,19,1,-840
+9,2,HIT,unsettled,0,30,29,False,False,0,1,-880
+11,3,SURRENDER,surrendered,-10,30,29,False,False,0,1,-880
+15,2,HIT,unsettled,0,39,42,False,False,18,1,-890
+21,3,SURRENDER,surrendered,-10,39,42,False,False,18,1,-890
+14,2,STAND,win,20,22,3,False,False,43,1,-900
+17,2,STAND,lose,-20,12,45,False,False,37,1,-880
+16,2,SURRENDER,surrendered,-10,5,48,False,False,17,1,-900
+13,2,STAND,lose,-20,49,28,False,False,31,1,-910
+17,2,SURRENDER,surrendered,-10,38,32,False,False,50,1,-930
+14,2,RETRY,unsettled,-5,25,42,False,False,38,1,-940
+12,2,RETRY,unsettled,-5,25,14,False,False,38,1,-945
+18,2,DOUBLE DOWN,win,40,25,7,False,False,38,1,-950
+14,2,HIT,unsettled,0,29,22,False,False,35,1,-910
+19,3,STAND,lose,-20,29,22,False,False,35,1,-910
+11,2,STAND,lose,-20,27,21,False,False,33,1,-930
+16,2,STAND,win,20,0,30,False,False,4,1,-950
+14,2,STAND,win,20,37,16,False,False,3,1,-930
+14,2,HIT,unsettled,0,42,35,False,False,13,1,-910
+21,3,STAND,lose,-20,42,35,False,False,13,1,-910
+9,2,RETRY,unsettled,-5,6,1,False,False,40,1,-930
+17,2,HIT,bust,-20,6,51,False,False,40,1,-935
+12,2,RETRY,unsettled,-5,19,43,False,False,45,1,-955
+16,2,HIT,bust,-20,19,47,False,False,45,1,-960
+15,2,STAND,lose,-20,46,32,False,False,21,1,-980
+16,2,DOUBLE DOWN,lose,-40,8,19,False,False,11,1,-1000
+21,2,RETRY,unsettled,-5,10,26,True,False,3,1,-1040
+12,2,STAND,win,20,10,14,False,False,3,1,-1045
+17,2,SURRENDER,surrendered,-10,24,6,False,False,22,1,-1025
+11,2,SURRENDER,surrendered,-10,30,5,False,False,25,1,-1035
+7,2,SURRENDER,surrendered,-10,41,16,False,False,51,1,-1045
+19,2,RETRY,unsettled,-5,50,21,False,False,17,1,-1055
+21,2,RETRY,unsettled,-5,50,13,True,False,17,1,-1060
+20,2,DOUBLE DOWN,win,40,50,48,False,False,17,1,-1065
+11,2,HIT,unsettled,0,33,2,False,False,1,1,-1025
+21,3,HIT,bust,-20,33,2,False,False,1,1,-1025
+10,2,RETRY,unsettled,-5,5,3,False,False,7,1,-1045
+9,2,HIT,unsettled,0,5,41,False,False,7,1,-1050
+14,3,RETRY,unsettled,-5,5,41,False,False,7,1,-1050
+19,3,SURRENDER,surrendered,-10,5,41,False,False,7,1,-1055
+13,2,DOUBLE DOWN,lose,-40,11,28,False,False,51,1,-1065
+17,2,SURRENDER,surrendered,-10,34,46,False,False,47,1,-1105
+6,2,STAND,lose,-20,27,42,False,False,48,1,-1115
+12,2,RETRY,unsettled,-5,17,6,False,False,43,1,-1135
+10,2,SURRENDER,surrendered,-10,17,17,False,False,43,1,-1140
+7,2,HIT,unsettled,0,16,41,False,False,40,1,-1150
+17,3,HIT,unsettled,0,16,41,False,False,40,1,-1150
+20,4,SURRENDER,surrendered,-10,16,41,False,False,40,1,-1150
+10,2,DOUBLE DOWN,lose,-40,33,40,False,False,4,1,-1160
+18,2,SURRENDER,surrendered,-10,6,0,False,False,35,1,-1200
+19,2,RETRY,unsettled,-5,21,50,False,False,7,1,-1210
+19,2,DOUBLE DOWN,bust,-40,21,25,False,False,7,1,-1215
+13,2,SURRENDER,surrendered,-10,13,1,False,False,31,1,-1255
+11,2,DOUBLE DOWN,win,40,14,21,False,False,12,1,-1265
+16,2,STAND,win,20,44,37,False,False,1,1,-1225
+19,2,STAND,win,20,8,25,False,False,45,1,-1205
+14,2,STAND,lose,-20,30,34,False,False,22,1,-1185
+20,2,STAND,win,20,24,10,False,False,3,1,-1205
+14,2,RETRY,unsettled,-5,28,26,False,False,51,1,-1185
+6,2,DOUBLE DOWN,win,40,28,2,False,False,51,1,-1190
+12,2,SURRENDER,surrendered,-10,44,5,False,False,4,1,-1150
+19,2,RETRY,unsettled,-5,8,37,False,False,51,1,-1160
+11,2,SURRENDER,surrendered,-10,8,14,False,False,51,1,-1165
+16,2,DOUBLE DOWN,win,40,31,51,False,False,1,1,-1175
+13,2,SURRENDER,surrendered,-10,36,15,False,False,43,1,-1135
+12,2,DOUBLE DOWN,win,40,27,35,False,False,29,1,-1145
+21,2,STAND,win,30,48,13,True,False,4,1,-1105
+14,2,HIT,unsettled,0,29,38,False,False,37,1,-1075
+15,3,DOUBLE DOWN,bust,-40,29,38,False,False,37,1,-1075
+7,2,RETRY,unsettled,-5,41,42,False,False,47,1,-1115
+13,2,HIT,bust,-20,41,25,False,False,47,1,-1120
+18,2,HIT,bust,-20,22,20,False,False,14,1,-1140
+18,2,HIT,unsettled,0,19,39,False,False,48,1,-1160
+21,3,DOUBLE DOWN,win,40,19,39,False,False,48,1,-1160
+14,2,SURRENDER,surrendered,-10,7,44,False,False,43,1,-1120
+5,2,HIT,unsettled,0,28,27,False,False,17,1,-1130
+15,3,SURRENDER,surrendered,-10,28,27,False,False,17,1,-1130
+20,2,HIT,bust,-20,37,10,False,False,20,1,-1140
+9,2,SURRENDER,surrendered,-10,2,44,False,False,15,1,-1160
+20,2,RETRY,unsettled,-5,49,11,False,False,26,1,-1170
+18,2,HIT,bust,-20,49,33,False,False,26,1,-1175
+18,2,HIT,unsettled,0,39,19,False,False,18,1,-1195
+12,3,STAND,lose,-20,39,19,False,False,18,1,-1195
+12,2,HIT,bust,-20,31,31,False,False,23,1,-1215
+9,2,HIT,unsettled,0,14,32,False,False,18,1,-1235
+12,3,DOUBLE DOWN,lose,-40,14,32,False,False,18,1,-1235
+19,2,SURRENDER,surrendered,-10,36,34,False,False,21,1,-1275
+16,2,HIT,bust,-20,5,11,False,False,40,1,-1285
+18,2,SURRENDER,surrendered,-10,45,0,False,False,38,1,-1305
+11,2,STAND,lose,-20,5,43,False,False,51,1,-1315
+20,2,DOUBLE DOWN,draw,0,49,9,False,False,40,1,-1335
+20,2,DOUBLE DOWN,bust,-40,48,24,False,False,12,1,-1335
+16,2,RETRY,unsettled,-5,12,5,False,False,33,1,-1375
+19,2,SURRENDER,surrendered,-10,12,8,False,False,33,1,-1380
+13,2,SURRENDER,surrendered,-10,11,15,False,False,2,1,-1390
+18,2,HIT,bust,-20,24,20,False,False,7,1,-1400
+7,2,DOUBLE DOWN,win,40,41,16,False,False,14,1,-1420
+21,2,RETRY,unsettled,-5,39,23,True,False,3,1,-1380
+16,2,DOUBLE DOWN,lose,-40,39,17,False,False,3,1,-1385
+13,2,HIT,unsettled,0,28,51,False,False,45,1,-1425
+20,3,RETRY,unsettled,-5,28,51,False,False,45,1,-1425
+14,3,STAND,lose,-20,28,51,False,False,45,1,-1430
+16,2,HIT,bust,-20,10,31,False,False,25,1,-1450
+9,2,RETRY,unsettled,-5,43,42,False,False,0,1,-1470
+16,2,SURRENDER,surrendered,-10,43,26,False,False,0,1,-1475
+13,2,RETRY,unsettled,-5,34,42,False,False,21,1,-1485
+17,2,RETRY,unsettled,-5,34,46,False,False,21,1,-1490
+12,2,HIT,unsettled,0,34,28,False,False,21,1,-1495
+15,3,RETRY,unsettled,-5,34,28,False,False,21,1,-1495
+17,3,RETRY,bust,-25,34,28,False,False,21,1,-1500
+10,2,SURRENDER,surrendered,-10,19,41,False,False,5,1,-1525
+14,2,SURRENDER,surrendered,-10,11,29,False,False,12,1,-1535
+7,2,HIT,unsettled,0,1,4,False,False,46,1,-1545
+15,3,SURRENDER,surrendered,-10,1,4,False,False,46,1,-1545
+7,2,STAND,lose,-20,30,14,False,False,5,1,-1555
+15,2,RETRY,unsettled,-5,35,43,False,False,30,1,-1575
+19,2,STAND,win,20,35,8,False,False,30,1,-1580
+20,2,RETRY,unsettled,-5,22,51,False,False,49,1,-1560
+16,2,HIT,bust,-20,22,18,False,False,49,1,-1565
+12,2,RETRY,unsettled,-5,41,21,False,False,40,1,-1585
+8,2,DOUBLE DOWN,lose,-40,41,4,False,False,40,1,-1590
+16,2,STAND,win,20,37,31,False,False,12,1,-1630
+10,2,STAND,win,20,32,41,False,False,49,1,-1610
+14,2,HIT,unsettled,0,29,10,False,False,42,1,-1590
+15,3,DOUBLE DOWN,bust,-40,29,10,False,False,42,1,-1590
+13,2,HIT,unsettled,0,26,14,False,False,28,1,-1630
+20,3,HIT,unsettled,0,26,14,False,False,28,1,-1630
+20,4,DOUBLE DOWN,bust,-40,26,14,False,False,28,1,-1630
+8,2,DOUBLE DOWN,draw,0,42,3,False,False,47,1,-1670
+6,2,RETRY,unsettled,-5,29,14,False,False,16,1,-1670
+9,2,STAND,win,20,29,4,False,False,16,1,-1675
+16,2,DOUBLE DOWN,bust,-40,49,5,False,False,32,1,-1655
+21,2,DOUBLE DOWN,win,40,26,51,True,False,49,1,-1695
+20,2,DOUBLE DOWN,bust,-40,38,36,False,False,51,1,-1655
+19,2,HIT,bust,-20,34,9,False,False,0,1,-1695
+5,2,STAND,win,20,1,41,False,False,15,1,-1715
+16,2,DOUBLE DOWN,bust,-40,21,19,False,False,20,1,-1695
+12,2,DOUBLE DOWN,win,40,15,47,False,False,11,1,-1735
+11,2,STAND,win,20,19,3,False,False,30,1,-1695
+13,2,DOUBLE DOWN,bust,-40,17,33,False,False,12,1,-1675
+18,2,HIT,bust,-20,25,7,False,False,43,1,-1715
+8,2,STAND,lose,-20,40,44,False,False,45,1,-1735
+16,2,HIT,bust,-20,31,37,False,False,8,1,-1755
+9,2,SURRENDER,surrendered,-10,42,30,False,False,36,1,-1775
+19,2,STAND,lose,-20,13,20,False,False,26,1,-1785
+13,2,SURRENDER,surrendered,-10,17,7,False,False,27,1,-1805
+5,2,DOUBLE DOWN,lose,-40,15,14,False,False,51,1,-1815
+14,2,HIT,unsettled,0,45,32,False,False,6,1,-1855
+18,3,HIT,bust,-20,45,32,False,False,6,1,-1855
+19,2,DOUBLE DOWN,bust,-40,49,8,False,False,9,1,-1875
+18,2,DOUBLE DOWN,win,40,9,33,False,False,47,1,-1915
+20,2,RETRY,unsettled,-5,37,38,False,False,25,1,-1875
+20,2,RETRY,unsettled,-5,37,9,False,False,25,1,-1880
+17,2,SURRENDER,surrendered,-10,37,6,False,False,25,1,-1885
+20,2,SURRENDER,surrendered,-10,35,36,False,False,6,1,-1895
+17,2,HIT,unsettled,0,26,5,False,False,17,1,-1905
+17,3,SURRENDER,surrendered,-10,26,5,False,False,17,1,-1905
+14,2,STAND,lose,-20,16,36,False,False,19,1,-1915
+12,2,DOUBLE DOWN,win,40,33,29,False,False,2,1,-1935
+6,2,DOUBLE DOWN,lose,-40,42,14,False,False,39,1,-1895
+21,2,STAND,draw,0,23,26,True,False,13,1,-1935
+11,2,STAND,win,20,21,27,False,False,27,1,-1935
+14,2,SURRENDER,surrendered,-10,17,8,False,False,1,1,-1915
+10,2,HIT,unsettled,0,5,16,False,False,3,1,-1925
+15,3,RETRY,unsettled,-5,5,16,False,False,3,1,-1925
+20,3,DOUBLE DOWN,bust,-40,5,16,False,False,3,1,-1930
+11,2,RETRY,unsettled,-5,29,45,False,False,28,1,-1970
+7,2,SURRENDER,surrendered,-10,29,15,False,False,28,1,-1975
+13,2,DOUBLE DOWN,win,40,15,12,False,False,10,1,-1985
+12,2,SURRENDER,surrendered,-10,42,20,False,False,38,1,-1945
+15,2,HIT,bust,-20,30,49,False,False,0,1,-1955
+20,2,RETRY,unsettled,-5,8,13,False,False,50,1,-1975
+12,2,RETRY,unsettled,-5,8,2,False,False,50,1,-1980
+11,2,RETRY,unsettled,-5,8,1,False,False,50,1,-1985
+18,2,STAND,win,20,8,34,False,False,50,1,-1990
+21,2,SURRENDER,surrendered,-10,24,26,True,False,33,1,-1970
+20,2,HIT,bust,-20,48,25,False,False,14,1,-1980
+13,2,RETRY,unsettled,-5,30,7,False,False,29,1,-2000
+8,2,DOUBLE DOWN,win,40,30,41,False,False,29,1,-2005
+16,2,RETRY,unsettled,-5,18,22,False,False,6,1,-1965
+8,2,STAND,lose,-20,18,27,False,False,6,1,-1970
+19,2,DOUBLE DOWN,bust,-40,25,47,False,False,19,1,-1990

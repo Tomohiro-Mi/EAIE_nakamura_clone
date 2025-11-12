@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -14,7 +14,7 @@ class BJNet(nn.Module):
         super(BJNet, self).__init__()
 
         # 1層目: 2次元入力 → 10パーセプトロン（バッチ正規化あり, ドロップアウトなし, 活性化関数 ReLU）
-        self.layer1 = FC(in_features=2, out_features=10, do_bn=True, activation='relu')
+        self.layer1 = FC(in_features=10, out_features=10, do_bn=True, activation='relu')
 
         # 2層目: 10パーセプトロン → 10パーセプトロン（バッチ正規化なし, ドロップアウトあり（ドロップアウト率 0.5）, 活性化関数 Tanh）
         self.layer2 = FC(in_features=10, out_features=10, do_bn=False, dropout_ratio=0.5, activation='tanh')

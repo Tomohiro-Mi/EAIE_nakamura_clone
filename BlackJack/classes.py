@@ -22,7 +22,6 @@ class Strategy(Enum):
     E_GREEDY = 3
     MANUAL = 4 # myGame.pyでのみ有効（それ以外のケースではRANDOMと解釈される）
 
-
 # カードセット
 class CardSet:
 
@@ -344,3 +343,31 @@ class QTable:
     def load(self, filename: str):
         with open(filename, 'rb') as f:
             self.table = pickle.load(f)
+
+# 残りカード枚数
+class RemainingCards:
+    def __init__(self, n_decks: int):
+        self.n_decks = n_decks
+        self.cards = [4 * n_decks for _ in range(13)]  # 各ランクのカード枚数
+        self.total_cards = sum(self.cards)  # 残りカードの総枚数
+
+    def draw(self, card: int):
+        rank = card % 13
+        if self.cards[rank] > 0:
+            self.cards[rank] -= 1
+            self.total_cards -= 1
+        else:
+            raise ValueError("Card of rank {} is not available to draw.".format(rank))
+        
+    def get_count(self, rank: int):
+        return self.cards[rank]
+    
+    def get_remaining_card_counts(self):
+        return self.cards.copy()
+
+    def get_total(self):
+        return self.total_cards
+    
+    def shuffle(self):
+        self.cards = [4 * self.n_decks for _ in range(13)]
+        self.total_cards = sum(self.cards)

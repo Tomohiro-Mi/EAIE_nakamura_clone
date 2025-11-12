@@ -273,7 +273,7 @@ def main():
     global g_retry_counter, player, soc
 
     parser = argparse.ArgumentParser(description='AI Black Jack Player (random strategy)')
-    parser.add_argument('--games', type=int, default=1, help='num. of games to play')
+    parser.add_argument('--games', type=int, default=1000, help='num. of games to play')
     parser.add_argument('--history', type=str, default='play_log.csv', help='filename where game history will be saved')
     args = parser.parse_args()
 

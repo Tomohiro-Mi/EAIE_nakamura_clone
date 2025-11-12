@@ -79,7 +79,7 @@ class TensorDataset(Dataset):
 # データセット読込用のクラス
 #   - filename: 読み込む csv ファイルのファイルパス
 #   - items: データとして読み込む列の項目名
-#   - dtypes: データの型（ 'float', 'label', 'one-hot', 'image' のいずれか）
+#   - dtypes: データの型（ 'float', 'label', 'one-hot', 'image', 'bool' のいずれか）
 #   - target_indices: 読み込み対象とするインデックスの集合（Noneの場合は全データを読み込む. デフォルトではNone）
 #   - fdicts: カテゴリデータを整数値に変換するための正引き辞書（Noneの場合は自動作成）
 #   - dirname: データ型が 'image' のとき, ファイル名の先頭に付加するディレクトリ名を指定するのに使用
@@ -115,7 +115,18 @@ class CSVBasedDataset(Dataset):
             fd = None
             rd = None
             if dtypes[i] == 'float':
-                X = torch.tensor(df[items[i]].values, dtype=torch.float32, device='cpu')
+                # Handle both single-column and multi-column (list) cases.
+                # Coerce boolean-like strings to numeric and convert non-numeric to NaN then fill with 0.
+                if type(items[i]) is list:
+                    subdf = df[items[i]].copy()
+                    # replace common boolean string representations
+                    subdf = subdf.replace({'True': 1, 'False': 0, 'true': 1, 'false': 0})
+                    # coerce to numeric, fill NaN with 0
+                    arr = subdf.apply(pd.to_numeric, errors='coerce').fillna(0).values.astype(np.float32)
+                else:
+                    s = df[items[i]].replace({'True': 1, 'False': 0, 'true': 1, 'false': 0})
+                    arr = pd.to_numeric(s, errors='coerce').fillna(0).values.astype(np.float32)
+                X = torch.tensor(arr, dtype=torch.float32, device='cpu')
             elif dtypes[i] == 'label':
                 if type(items[i]) is list:
                     X = []
@@ -138,6 +149,8 @@ class CSVBasedDataset(Dataset):
                     else:
                         X, fd, rd = __to_numerical__(df[items[i]].to_list(), one_hot=False, fdict=fdicts[i])
                 X = torch.tensor(X, dtype=torch.long, device='cpu')
+            elif dtypes[i] == 'bool':
+                X = torch.tensor(df[items[i]].values, dtype=torch.bool, device='cpu')
             elif dtypes[i] == 'one-hot':
                 if type(items[i]) is list:
                     X = []

@@ -25,8 +25,8 @@ def main():
     # デバイス, エポック数, バッチサイズなどをコマンドライン引数から取得し変数に保存
     parser = argparse.ArgumentParser(description='Neural Network Trainer for AI Player')
     parser.add_argument('--gpu', '-g', default=-1, type=int, help='GPU/CUDA ID (negative value indicates CPU)')
-    parser.add_argument('--epochs', '-e', default=50, type=int, help='number of epochs to learn')
-    parser.add_argument('--batchsize', '-b', default=100, type=int, help='minibatch size')
+    parser.add_argument('--epochs', '-e', default=100, type=int, help='number of epochs to learn')
+    parser.add_argument('--batchsize', '-b', default=64, type=int, help='minibatch size')
     parser.add_argument('--model', '-m', default=os.path.join(MODEL_DIR, 'model.pth'), type=str, help='file path of trained model')
     parser.add_argument('--autosave', '-s', help='this option makes the model automatically saved in each epoch', action='store_true')
     args = print_args(parser.parse_args())
@@ -36,16 +36,19 @@ def main():
     MODEL_PATH = args['model']
     AUTO_SAVE = args['autosave']
 
+    # Ensure model directory exists
+    os.makedirs(MODEL_DIR, exist_ok=True)
+
     # CSVファイルを読み込み, 訓練データセットを用意
     dataset = CSVBasedDataset(
         filename = DATASET_CSV,
         items = [
-            ['score', 'hand_length'], # X
-            'action' # Y
+            ['score_bin, hand_length, p_hand_is_nbj,p_hand_is_busted,d_hand_1,remaining_2_6,remaining_7_9,remaining_10_K,remaining_A,money_bin'], # X
+            'result' # Y
         ],
         dtypes = [
-            'float', # Xの型
-            'label' # Yの型
+            'float',
+            'label'
         ]
     )
 
@@ -74,7 +77,7 @@ def main():
     loss_func = nn.CrossEntropyLoss()
 
     # 勾配降下法による繰り返し学習
-    for epoch in range(N_EPOCHS):
+    for epoch in tqdm(range(N_EPOCHS)):
 
         print('Epoch {0}:'.format(epoch + 1))
 

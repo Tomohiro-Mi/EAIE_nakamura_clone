@@ -5,7 +5,7 @@ import pandas as pd
 def main():
 
     parser = argparse.ArgumentParser(description='Black Jack Log Selector Sample')
-    parser.add_argument('--in_file', type=str, default='play_log.csv', help='input filename (raw play log)')
+    parser.add_argument('--in_file', type=str, default='play_log_Q.csv', help='input filename (raw play log)')
     parser.add_argument('--out_file', type=str, default='selected_log.csv', help='output filename')
     args = parser.parse_args()
 

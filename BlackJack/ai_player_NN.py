@@ -1,7 +1,7 @@
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 import sys
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import copy
 import socket
 import argparse
@@ -261,11 +261,20 @@ def get_state():
     #   - d_hand: ディーラー手札（見えているもののみ）
     p_hand, d_hand = get_current_hands()
 
-    # 「現在の状態」を設定
-    # ここでは例として，プレイヤー手札のスコアとプレイヤー手札の枚数の組を「現在の状態」とする
-    score = p_hand.get_score() # プレイヤー手札のスコア
-    length = p_hand.length() # プレイヤー手札の枚数
-    state = (score, length) # 現在の状態
+    # 「現在の状態」を設定（正規化）
+    # スコアは生の値を使い，その後正規化（0-1）する
+    score = float(p_hand.get_score()) / 21.0
+    length = float(p_hand.length()) / 11.0
+    # カードは 0-12 として表現されるはずなので正規化
+    p_hand_1 = float(p_hand[0]) / 12.0 if p_hand.length() > 0 else 0.0
+    p_hand_2 = float(p_hand[1]) / 12.0 if p_hand.length() > 1 else 0.0
+    p_hand_is_nbj = float(int(p_hand.is_nbj()))
+    p_hand_is_busted = float(int(p_hand.is_busted()))
+    d_hand_1 = float(d_hand[0]) / 12.0
+    d_hand_length = float(d_hand.length()) / 11.0
+    # 所持金は初期金額で割って正規化
+    money = float(player.get_money()) / float(INITIAL_MONEY)
+    state = (score, length, p_hand_1, p_hand_2, p_hand_is_nbj, p_hand_is_busted, d_hand_1, d_hand_length, money)
 
     return state
 
@@ -281,8 +290,29 @@ def select_action(state):
     y = torch.softmax(y, dim=1)
     z = y.to('cpu').detach().numpy()[0]
 
-    # ニューラルネットワークの出力（行動選択確率）に応じて行動を選択
-    return np.random.choice(a=action_set, size=1, p=z)
+    # マスキング: 無効な行動を確率0にして再正規化
+    mask = np.ones(len(action_set), dtype=bool)
+    # action_set = [Action.DOUBLE_DOWN, Action.HIT, Action.RETRY, Action.STAND, Action.SURRENDER]
+    # DOUBLE_DOWN (index 0) は手札が2枚のときのみ有効と仮定
+    length_norm = state[1]
+    length = int(round(length_norm * 11))
+    if length != 2:
+        mask[0] = False
+    # RETRY (index 2)
+    if g_retry_counter >= RETRY_MAX:
+        mask[2] = False
+
+    probs = z
+    probs[~mask] = 0.0
+    s = probs.sum()
+    if s <= 0.0:
+        # もし全て無効なら均等ランダム
+        probs = np.ones_like(probs) / len(probs)
+    else:
+        probs = probs / s
+
+    choice = np.random.choice(a=len(action_set), size=1, p=probs)[0]
+    return action_set[int(choice)]
 
 
 ### ここから処理開始 ###
@@ -291,9 +321,9 @@ def main():
     global g_retry_counter, g_device, player, soc, nn_model, action_set
 
     parser = argparse.ArgumentParser(description='AI Black Jack Player (Neural Network-based)')
-    parser.add_argument('--games', type=int, default=1, help='num. of games to play')
+    parser.add_argument('--games', type=int, default=1000, help='num. of games to play')
     parser.add_argument('--history', type=str, default='play_log.csv', help='filename where game history will be saved')
-    parser.add_argument('--model', default=os.path.join(MODEL_DIR, 'model.pth'), type=str, help='file path of trained model')
+    parser.add_argument('--model', default='', type=str, help='file path of trained model')
     parser.add_argument('--gpu', default=-1, type=int, help='GPU/CUDA ID (negative value indicates CPU)')
     args = print_args(parser.parse_args())
     MODEL_PATH = args['model']
@@ -304,11 +334,9 @@ def main():
 
     # ログファイルを開く
     logfile = open(args['history'], 'w')
-    print('score,hand_length,action,result,reward', file=logfile) # ログファイルにヘッダ行（項目名の行）を出力
-
+    print('score,hand_length,action,result,reward,p_hand_1,p_hand_2,p_hand_is_nbj,p_hand_is_busted,d_hand_1,d_hand_length,money', file=logfile) # ログファイルにヘッダ行（項目名の行）を出力
     # ニューラルネットワークの作成
     nn_model = BJNet()
-    nn_model.load_state_dict(torch.load(MODEL_PATH))
     nn_model = nn_model.to(DEVICE)
     nn_model.eval()
 
@@ -350,7 +378,21 @@ def main():
             score = state[0] # 行動後のプレイヤー手札のスコア（state の一つ目の要素）
 
             # ログファイルに「行動前の状態」「行動の種類」「行動結果」「獲得金額」などの情報を記録
-            print('{},{},{},{},{}'.format(prev_state[0], prev_state[1], action_name, status, reward), file=logfile)
+            print('{},{},{},{},{},{},{},{},{},{},{},{}'.format(
+                prev_score,
+                prev_state[1],
+                action_name,
+                status,
+                reward,
+                prev_state[2],
+                prev_state[3],
+                int(prev_state[4]),
+                int(prev_state[5]),
+                prev_state[6],
+                prev_state[7],
+                prev_state[8]
+            ), file=logfile)
+            logfile.flush()
 
             # 終了フラグが立った場合はnゲーム目を終了
             if done == True:

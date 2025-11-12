@@ -26,8 +26,9 @@ q_table = QTable(action_class=Action, default_value=0)
 
 # Q学習の設定値
 EPS = 0.3 # ε-greedyにおけるε
-LEARNING_RATE = 0.1 # 学習率
+LEARNING_RATE = 0.2 # 学習率
 DISCOUNT_FACTOR = 0.9 # 割引率
+DECAY_STEP = 500 # εの減衰ステップ数
 
 
 ### 関数 ###
@@ -292,7 +293,7 @@ def main():
     global g_retry_counter, player, soc, q_table
 
     parser = argparse.ArgumentParser(description='AI Black Jack Player (Q-learning)')
-    parser.add_argument('--games', type=int, default=1, help='num. of games to play')
+    parser.add_argument('--games', type=int, default=1000, help='num. of games to play')
     parser.add_argument('--history', type=str, default='play_log.csv', help='filename where game history will be saved')
     parser.add_argument('--load', type=str, default='', help='filename of Q table to be loaded before learning')
     parser.add_argument('--save', type=str, default='', help='filename where Q table will be saved after learning')
@@ -364,6 +365,11 @@ def main():
                 break
 
         print('')
+
+        # EPSをDECAY_STEPごとに減衰
+        if not args.testmode and n % DECAY_STEP == 0:
+            global EPS
+            EPS = max(0.001, EPS * 0.95)
 
     # ログファイルを閉じる
     logfile.close()
