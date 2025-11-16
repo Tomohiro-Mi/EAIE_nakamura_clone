@@ -13,6 +13,7 @@ from tqdm import tqdm
 # 1ゲームあたりのRETRY回数の上限(変更不可)
 RETRY_MAX = 10
 
+
 ### グローバル変数 ###
 
 # ゲームごとのRETRY回数のカウンター
@@ -24,52 +25,23 @@ player = Player(initial_money=INITIAL_MONEY, basic_bet=BET)
 # ディーラーとの通信用ソケット
 soc = None
 
-# 残りカード追跡（各アクションで更新するため）
-g_remaining_cards: RemainingCards | None = None
-
 # ハイパーパラメータ
 TOTAL_GAMES = 1000 # 総ゲーム数
 BUFFER_SIZE = 1000 # 経験再生バッファのサイズ
 BATCH_SIZE = 32 # ミニバッチサイズ
-STATE_SIZE = 10 # 状態の次元数（score,length,nbj,busted,d_up,rem4(4),money_bin）
+STATE_SIZE = 10
 ACTION_SIZE = 5 # 行動の種類数
-TARGET_UPDATE_FREQ = 1000 # ターゲットネットワークの更新頻度（ステップ単位）
-EPS = 0.30029930706539565 # ε-greedyにおけるε
-LEARNING_RATE = 0.00023635939752880797 # 学習率（DQN用に小さめ）
-DISCOUNT_FACTOR = 0.9132245045626944 # 割引率
+TARGET_UPDATE_FREQ = 500 # ターゲットネットワークの更新頻度（ステップ単位）
+EPS = 0.1 # ε-greedyにおけるε
+LEARNING_RATE = 0.001 # 学習率（DQN用に小さめ）
+DISCOUNT_FACTOR = 0.99 # 割引率
 
-# 所持金ビン化
-# 0: 借金 (<0), 1: 破産寸前 (<BET), 2: 通常 (<INITIAL_MONEY), 3: 潤沢 (>=INITIAL_MONEY)
-def money_to_bin(money: int) -> int:
-    if money < 0:
-        return 0
-    if money < BET:
-        return 1
-    if money < INITIAL_MONEY * 0.8:
-        return 2
-    if money < INITIAL_MONEY:
-        return 3
-    return 4
+# ログ制御: edit は詳細出力あり
+VERBOSE = True
 
-# 残り枚数を4分類（2-6, 7-9, 10-K, A）に集約
-def remaining_counts_4cats(counts: list[int]) -> list[int]:
-    # counts: 0:A,1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:J,11:Q,12:K
-    two_to_six = sum(counts[1:6])     # 2..6
-    seven_to_nine = sum(counts[6:9])  # 7..9
-    ten_to_king = sum(counts[9:13])   # 10,J,Q,K
-    aces = counts[0]                  # A
-    return [two_to_six, seven_to_nine, ten_to_king, aces]
-
-# スコア4段階ビン化
-def score_to_bin(score: int) -> int:
-    # 旧来のビン化は使わない（互換性維持のため関数は残す）
-    if score <= 8:
-        return 0
-    if score <= 11:
-        return 1
-    if score <= 16:
-        return 2
-    return 3
+def log(*args, **kwargs):
+    if VERBOSE:
+        print(*args, **kwargs)
 
 # DQNの行動インデックスをAction列挙に変換
 def index_to_action(i: int) -> Action:
@@ -129,20 +101,33 @@ class ExperienceReplayBuffer:
         return torch.tensor(array, dtype=torch.float32, device=self.device)   
 
 
-class QNetwork(torch.nn.Module):
+class DuelingQNetwork(torch.nn.Module):
+    """Dueling DQN implementation for edit script (prints enabled)."""
     def __init__(self, state_size: int, action_size: int):
-        super(QNetwork, self).__init__()
-        # 深めのネットワークに変更
-        self.fc1 = torch.nn.Linear(state_size, 256)
-        self.fc2 = torch.nn.Linear(256, 256)
-        self.fc3 = torch.nn.Linear(256, 128)
-        self.fc4 = torch.nn.Linear(128, action_size)
+        super(DuelingQNetwork, self).__init__()
+        hid = 256
+        self.shared1 = torch.nn.Linear(state_size, hid)
+        self.shared2 = torch.nn.Linear(hid, hid)
+
+        # value stream
+        self.value_fc = torch.nn.Linear(hid, 128)
+        self.value_out = torch.nn.Linear(128, 1)
+
+        # advantage stream
+        self.adv_fc = torch.nn.Linear(hid, 128)
+        self.adv_out = torch.nn.Linear(128, action_size)
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        x = torch.relu(self.fc3(x))
-        return self.fc4(x)
+        x = torch.relu(self.shared1(x))
+        x = torch.relu(self.shared2(x))
+
+        v = torch.relu(self.value_fc(x))
+        v = self.value_out(v)
+
+        a = torch.relu(self.adv_fc(x))
+        a = self.adv_out(a)
+
+        return v + (a - a.mean(dim=1, keepdim=True))
     
 
 class Agent:
@@ -155,24 +140,21 @@ class Agent:
 
         self.epsilon = epsilon
         self.epsilon_min = epsilon_min
-        # εはステップ単位で減衰させる（ゲームごとではなく行動ごと）
-        self.epsilon_decay = (epsilon - epsilon_min) / (TOTAL_GAMES * 20)
+        self.epsilon_decay = (epsilon - epsilon_min) / TOTAL_GAMES
 
         self.replay = ExperienceReplayBuffer(buffer_size=buffer_size, batch_size=BATCH_SIZE)
         self.data = None
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-        # Qネットワーク（オンライン／ターゲット）
-        self.original_q_network = QNetwork(state_size, action_size).to(self.device)
-        self.target_q_network = QNetwork(state_size, action_size).to(self.device)
+        # Qネットワーク（オンライン／ターゲット） — Dueling
+        self.original_q_network = DuelingQNetwork(state_size, action_size).to(self.device)
+        self.target_q_network = DuelingQNetwork(state_size, action_size).to(self.device)
         self.sync_net()  # 初期同期
 
         # 追加属性（他メソッドで参照されるもの）
         self.gamma = discount_factor
         self.batch_size = BATCH_SIZE
         self.learn_steps = 0
-        self.total_steps = 0
         # オンラインネットワークを最適化対象に設定
         self.optimizer = torch.optim.Adam(self.original_q_network.parameters(), lr=learning_rate)
 
@@ -210,10 +192,6 @@ class Agent:
         if self.learn_steps % TARGET_UPDATE_FREQ == 0:
             self.sync_net()
 
-    def decay_epsilon_step(self) -> None:
-        # 行動ごとにεを減衰
-        self.epsilon = max(self.epsilon_min, self.epsilon - self.epsilon_decay)
-
     def add_experience(
         self,
         state: Union[np.ndarray, Tuple],
@@ -229,17 +207,20 @@ class Agent:
         self.target_q_network.load_state_dict(self.original_q_network.state_dict())
 
     def set_epsilon(self) -> None:
-        self.epsilon = max(self.epsilon_min, self.epsilon - self.epsilon_decay)
+        self.epsilon -= self.epsilon_decay
 
-    def save_model(self, path: str = 'dqn_model.pth') -> None:
-        torch.save(self.original_q_network.state_dict(), path)
+    def save_model(self) -> None:
+        torch.save(self.original_q_network.state_dict(), 'dqn_model.pth')
 
 
-### 環境インタフェース ###
+### 関数 ###
 
 # ゲームを開始する
-def game_start(game_ID=0, remaining_cards: RemainingCards | None = None):
-    global g_retry_counter, player, soc, g_remaining_cards
+def game_start(game_ID=0, remaining_cards=None):
+    global g_retry_counter, player, soc
+
+    log('Game {0} start.'.format(game_ID))
+    log('  money: ', player.get_money(), '$')
 
     # RETRY回数カウンターの初期化
     g_retry_counter = 0
@@ -251,20 +232,28 @@ def game_start(game_ID=0, remaining_cards: RemainingCards | None = None):
 
     # ベット
     bet, money = player.set_bet()
+    log('Action: BET')
+    log('  money: ', money, '$')
+    log('  bet: ', bet, '$')
 
     # ディーラーから「カードシャッフルを行ったか否か」の情報を取得
+    # シャッフルが行われた場合は True が, 行われなかった場合は False が，変数 cardset_shuffled にセットされる
+    # なお，本サンプルコードではここで取得した情報は使用していない
     cardset_shuffled = player.receive_card_shuffle_status(soc)
-    if cardset_shuffled and remaining_cards is not None:
+    if cardset_shuffled:
+        log('Dealer said: Card set has been shuffled before this game.')
         remaining_cards.shuffle()
-
     # ディーラーから初期カード情報を受信
     dc, pc1, pc2 = player.receive_init_cards(soc)
-    # 残りカード管理を保持
-    g_remaining_cards = remaining_cards
-    if g_remaining_cards is not None:
-        g_remaining_cards.draw(dc)
-        g_remaining_cards.draw(pc1)
-        g_remaining_cards.draw(pc2)
+    remaining_cards.draw(dc)
+    remaining_cards.draw(pc1)
+    remaining_cards.draw(pc2)
+
+    log('Delaer gave cards.')
+    log('  dealer-card: ', get_card_info(dc))
+    log('  player-card 1: ', get_card_info(pc1))
+    log('  player-card 2: ', get_card_info(pc2))
+    log('  current score: ', player.get_score())
 
 # 現時点での手札情報（ディーラー手札は見えているもののみ）を取得
 def get_current_hands():
@@ -272,26 +261,27 @@ def get_current_hands():
 
 # HITを実行する
 def hit():
-    global player, soc, g_remaining_cards
+    global player, soc
+    log('Action: HIT')
 
     # ディーラーにメッセージを送信
     player.send_message(soc, 'hit')
 
     # ディーラーから情報を受信
     pc, score, status, rate, dc = player.receive_message(dsoc=soc, get_player_card=True, get_dealer_cards=True)
-
-    # 引いたカードを残り枚数から減算
-    if g_remaining_cards is not None:
-        g_remaining_cards.draw(pc)
+    log('  player-card {0}: '.format(player.get_num_player_cards()), get_card_info(pc))
+    log('  current score: ', score)
 
     # バーストした場合はゲーム終了
     if status == 'bust':
-        # ディーラー公開カードを減算
-        if g_remaining_cards is not None:
-            for c in dc:
-                g_remaining_cards.draw(c)
-        soc.close()
-        reward = player.update_money(rate=rate)
+        for i in range(len(dc)):
+            log('  dealer-card {0}: '.format(i+2), get_card_info(dc[i]))
+        log("  dealer's score: ", player.get_dealer_score())
+        soc.close() # ディーラーとの通信をカット
+        reward = player.update_money(rate=rate) # 所持金額を更新
+        log('Game finished.')
+        log('  result: bust')
+        log('  money: ', player.get_money(), '$')
         return reward, True, status
 
     # バーストしなかった場合は続行
@@ -300,102 +290,114 @@ def hit():
 
 # STANDを実行する
 def stand():
-    global player, soc, g_remaining_cards
+    global player, soc
+    log('Action: STAND')
 
     # ディーラーにメッセージを送信
     player.send_message(soc, 'stand')
 
     # ディーラーから情報を受信
     score, status, rate, dc = player.receive_message(dsoc=soc, get_dealer_cards=True)
+    log('  current score: ', score)
+    for i in range(len(dc)):
+        log('  dealer-card {0}: '.format(i+2), get_card_info(dc[i]))
+    log("  dealer's score: ", player.get_dealer_score())
 
-    # ディーラー公開カードを減算
-    if g_remaining_cards is not None:
-        for c in dc:
-            g_remaining_cards.draw(c)
-
-    # ゲーム終了
+    # ゲーム終了，ディーラーとの通信をカット
     soc.close()
 
     # 所持金額を更新
     reward = player.update_money(rate=rate)
-
+    log('Game finished.')
+    log('  result: ', status)
+    log('  money: ', player.get_money(), '$')
     return reward, True, status
 
 # DOUBLE_DOWNを実行する
 def double_down():
-    global player, soc, g_remaining_cards
+    global player, soc
+    log('Action: DOUBLE DOWN')
 
     # 今回のみベットを倍にする
     bet, money = player.double_bet()
+    log('  money: ', money, '$')
+    log('  bet: ', bet, '$')
 
     # ディーラーにメッセージを送信
     player.send_message(soc, 'double_down')
 
     # ディーラーから情報を受信
     pc, score, status, rate, dc = player.receive_message(dsoc=soc, get_player_card=True, get_dealer_cards=True)
+    log('  player-card {0}: '.format(player.get_num_player_cards()), get_card_info(pc))
+    log('  current score: ', score)
+    for i in range(len(dc)):
+        log('  dealer-card {0}: '.format(i+2), get_card_info(dc[i]))
+    log("  dealer's score: ", player.get_dealer_score())
 
-    # 引いたカードを減算
-    if g_remaining_cards is not None:
-        g_remaining_cards.draw(pc)
-
-    # ディーラー公開カードを減算
-    if g_remaining_cards is not None:
-        for c in dc:
-            g_remaining_cards.draw(c)
-
-    # ゲーム終了
+    # ゲーム終了，ディーラーとの通信をカット
     soc.close()
 
     # 所持金額を更新
     reward = player.update_money(rate=rate)
-
+    log('Game finished.')
+    log('  result: ', status)
+    log('  money: ', player.get_money(), '$')
     return reward, True, status
 
 # SURRENDERを実行する
 def surrender():
-    global player, soc, g_remaining_cards
+    global player, soc
+    log('Action: SURRENDER')
 
     # ディーラーにメッセージを送信
     player.send_message(soc, 'surrender')
 
     # ディーラーから情報を受信
     score, status, rate, dc = player.receive_message(dsoc=soc, get_dealer_cards=True)
+    log('  current score: ', score)
+    for i in range(len(dc)):
+        log('  dealer-card {0}: '.format(i+2), get_card_info(dc[i]))
+    log("  dealer's score: ", player.get_dealer_score())
 
-    # ディーラー公開カードを減算
-    if g_remaining_cards is not None:
-        for c in dc:
-            g_remaining_cards.draw(c)
-
-    # ゲーム終了
+    # ゲーム終了，ディーラーとの通信をカット
     soc.close()
 
     # 所持金額を更新
     reward = player.update_money(rate=rate)
-
+    log('Game finished.')
+    log('  result: ', status)
+    log('  money: ', player.get_money(), '$')
     return reward, True, status
 
 # RETRYを実行する
 def retry():
-    global player, soc, g_remaining_cards
+    global player, soc
+    log('Action: RETRY')
 
     # ベット額の 1/4 を消費
     penalty = player.current_bet // 4
     player.consume_money(penalty)
+    log('  player-card {0} has been removed.'.format(player.get_num_player_cards()))
+    log('  money: ', player.get_money(), '$')
 
     # ディーラーにメッセージを送信
     player.send_message(soc, 'retry')
 
     # ディーラーから情報を受信
     pc, score, status, rate, dc = player.receive_message(dsoc=soc, get_player_card=True, get_dealer_cards=True, retry_mode=True)
-
-    # 引いたカードを減算
-    if g_remaining_cards is not None:
-        g_remaining_cards.draw(pc)
+    log('  player-card {0}: '.format(player.get_num_player_cards()), get_card_info(pc))
+    log('  current score: ', score)
 
     # バーストした場合はゲーム終了
     if status == 'bust':
-        soc.close()
-        reward = player.update_money(rate=rate)
+        for i in range(len(dc)):
+            log('  dealer-card {0}: '.format(i+2), get_card_info(dc[i]))
+        log("  dealer's score: ", player.get_dealer_score())
+        soc.close() # ディーラーとの通信をカット
+        reward = player.update_money(rate=rate) # 所持金額を更新
+        log('Game finished.')
+        log('  result: bust')
+        log('  money: ', player.get_money(), '$')
         return reward-penalty, True, status
 
     # バーストしなかった場合は続行
@@ -421,10 +423,8 @@ def act(action: Action):
 ### これ以降の関数が重要 ###
 
 # 現在の状態の取得
-def get_state(remaining_cards: RemainingCards | None = None):
+def get_state(remainng_cards: RemainingCards=None):
     # 現在の手札情報を取得
-    #   - p_hand: プレイヤー手札
-    #   - d_hand: ディーラー手札（見えているもののみ）
     p_hand, d_hand = get_current_hands()
 
     # 生のスコア（0-21）
@@ -434,13 +434,25 @@ def get_state(remaining_cards: RemainingCards | None = None):
     p_hand_is_busted = p_hand.is_busted()
     d_hand_1 = d_hand[0]
 
-    # money をビン化
-    money_bin = money_to_bin(player.get_money())
+    # money をビン化（簡易: 0-4 の範囲に丸める）
+    # train 側の実装と互換を持たせるために簡易的なビン化を採用
+    if player.get_money() < 0:
+        money_bin = 0
+    elif player.get_money() < BET:
+        money_bin = 1
+    elif player.get_money() < INITIAL_MONEY * 0.8:
+        money_bin = 2
+    elif player.get_money() < INITIAL_MONEY:
+        money_bin = 3
+    else:
+        money_bin = 4
 
-    # 残りカード 4分類
-    ref_cards = remaining_cards if remaining_cards is not None else g_remaining_cards
-    full_counts = ref_cards.get_remaining_card_counts() if ref_cards is not None else [0]*13
-    rem4 = remaining_counts_4cats(full_counts)
+    # 残りカード 4分類 (2-6,7-9,10-K,A)
+    full_counts = remainng_cards.get_remaining_card_counts() if remainng_cards is not None else [0]*13
+    two_to_six = sum(full_counts[1:6])     # 2..6
+    seven_to_nine = sum(full_counts[6:9])  # 7..9
+    ten_to_king = sum(full_counts[9:13])   # 10,J,Q,K
+    aces = full_counts[0]
 
     # 正規化を行う（すべて 0-1 にスケーリング）
     score_norm = float(raw_score) / 21.0
@@ -451,14 +463,14 @@ def get_state(remaining_cards: RemainingCards | None = None):
     max_ten_to_king = 4 * 4 * N_DECKS
     max_aces = 1 * 4 * N_DECKS
     rem4_norm = [
-        rem4[0] / max_two_to_six if max_two_to_six>0 else 0.0,
-        rem4[1] / max_seven_to_nine if max_seven_to_nine>0 else 0.0,
-        rem4[2] / max_ten_to_king if max_ten_to_king>0 else 0.0,
-        rem4[3] / max_aces if max_aces>0 else 0.0,
+        two_to_six / max_two_to_six if max_two_to_six>0 else 0.0,
+        seven_to_nine / max_seven_to_nine if max_seven_to_nine>0 else 0.0,
+        ten_to_king / max_ten_to_king if max_ten_to_king>0 else 0.0,
+        aces / max_aces if max_aces>0 else 0.0,
     ]
     money_norm = float(money_bin) / 4.0
 
-    # フラットな固定長ベクトル（10次元）
+    # Dueling の学習時と互換のある 10 次元の正規化ベクトルを返す
     flat_state = np.array([
         score_norm, length_norm,
         float(int(p_hand_is_nbj)), float(int(p_hand_is_busted)),
@@ -468,39 +480,6 @@ def get_state(remaining_cards: RemainingCards | None = None):
     ], dtype=np.float32)
 
     return flat_state
-
-# 行動戦略
-def select_action(state, strategy: Strategy, agent: Agent=None):
-
-    # Q値最大行動を選択する戦略
-    if strategy == Strategy.QMAX:
-        state_tensor = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
-        q_vals = agent.original_q_network(state_tensor).detach().cpu().numpy()[0]
-        mask = get_valid_action_mask_from_state(state)
-        q_vals_masked = np.copy(q_vals)
-        q_vals_masked[~mask] = -1e9
-        return index_to_action(int(np.argmax(q_vals_masked)))
-
-    # ε-greedy
-    elif strategy == Strategy.E_GREEDY:
-        if np.random.rand() < agent.epsilon:
-            mask = get_valid_action_mask_from_state(state)
-            valid_indices = np.where(mask)[0]
-            chosen = np.random.choice(valid_indices)
-            return index_to_action(int(chosen))
-        else:
-            state_tensor = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
-            q_vals = agent.original_q_network(state_tensor).detach().cpu().numpy()[0]
-            mask = get_valid_action_mask_from_state(state)
-            q_vals[~mask] = -1e9
-            return index_to_action(int(np.argmax(q_vals)))
-
-    # ランダム戦略: 有効な行動のみ
-    else:
-        mask = get_valid_action_mask_from_state(state)
-        valid_indices = np.where(mask)[0]
-        chosen = np.random.choice(valid_indices)
-        return index_to_action(int(chosen))
 
 
 def get_valid_action_mask_from_state(state: np.ndarray) -> np.ndarray:
@@ -518,47 +497,90 @@ def get_valid_action_mask_from_state(state: np.ndarray) -> np.ndarray:
         mask[action_to_index(Action.RETRY)] = False
     return mask
 
+# 行動戦略
+def select_action(state, strategy: Strategy, agent: Agent=None):
+
+    # Q値最大行動を選択する戦略
+    if strategy == Strategy.QMAX:
+        # Use the network outputs and apply the same valid-action mask used in training
+        state_tensor = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
+        q_vals = agent.original_q_network(state_tensor).detach().cpu().numpy()[0]
+        mask = get_valid_action_mask_from_state(state)
+        q_vals_masked = np.copy(q_vals)
+        # invalidate illegal actions by setting very low value
+        q_vals_masked[~mask] = -np.inf
+        idx = int(np.nanargmax(q_vals_masked))
+        return index_to_action(idx)
+
+    # ε-greedy
+    elif strategy == Strategy.E_GREEDY:
+        if np.random.rand() < agent.epsilon:
+            return select_action(state, strategy=Strategy.RANDOM)
+        else:
+            idx = agent.get_best_action(state)
+            return index_to_action(idx)
+
+    # ランダム戦略
+    else:
+        z = np.random.randint(0, 5)
+        if z == 0:
+            return Action.HIT
+        elif z == 1:
+            return Action.STAND
+        elif z == 2:
+            return Action.DOUBLE_DOWN
+        elif z == 3:
+            return Action.SURRENDER
+        else: # z == 4 のとき
+            return Action.RETRY
+
 
 ### ここから処理開始 ###
 
 def main():
     global g_retry_counter, player, soc
 
-    parser = argparse.ArgumentParser(description='AI Black Jack Player (DQN train)')
-    parser.add_argument('--games', type=int, default=TOTAL_GAMES, help='num. of games to play')
-    parser.add_argument('--history', type=str, default='', help='(optional) CSV file to save transitions or game summaries')
-    parser.add_argument('--log-mode', type=str, choices=('per_action', 'per_game'), default='per_game', help='logging mode: per_action (old) or per_game (summary)')
-    parser.add_argument('--load', type=str, default='', help='filename of model to be loaded before learning')
-    parser.add_argument('--save', type=str, default='dqn_model.pth', help='filename to save trained model')
-    parser.add_argument('--testmode', action='store_true', help='run without learning (greedy)')
+    parser = argparse.ArgumentParser(description='AI Black Jack Player (Q-learning)')
+    parser.add_argument('--games', type=int, default=1000, help='num. of games to play')
+    parser.add_argument('--history', type=str, default='play_log.csv', help='filename where game history will be saved')
+    parser.add_argument('--log-mode', type=str, choices=('per_action','per_game'), default='per_game', help='logging mode: per_action (detailed) or per_game (summary)')
+    parser.add_argument('--load', type=str, default='', help='filename of Q table to be loaded before learning')
+    parser.add_argument('--save', type=str, default='', help='filename to save trained model')
+    parser.add_argument('--testmode', help='this option runs the program without learning', action='store_true')
     args = parser.parse_args()
 
-    n_games = (TOTAL_GAMES if args.games == -1 else args.games) + 1
-
-    # エージェント構築
-    agent = Agent(STATE_SIZE, ACTION_SIZE, LEARNING_RATE, DISCOUNT_FACTOR, EPS, buffer_size=BUFFER_SIZE)
+    if args.games == -1:
+        n_games = TOTAL_GAMES
+    else:
+        n_games = args.games + 1
 
     # 学習済みモデルの読み込み
-    if args.load:
-        agent.original_q_network.load_state_dict(torch.load(args.load))
+    if args.load != '':
+        print('Loading model from {}...'.format(args.load))
+        # モデルのstate_dictを先にロードして、state_sizeを動的に取得
+        checkpoint = torch.load(args.load)
+        loaded_state_size = checkpoint['shared1.weight'].shape[1]
+        agent = Agent(loaded_state_size, ACTION_SIZE, LEARNING_RATE, DISCOUNT_FACTOR, EPS, buffer_size=BUFFER_SIZE)
+        agent.original_q_network.load_state_dict(checkpoint)
         agent.sync_net()
+        print('Model loaded.')
 
-    # オプションのCSV: per_action（従来）/ per_game（1行=1ゲーム）を切替
+    # ログファイル: per_action (詳細) / per_game (サマリ)
     action_logfile = None
     game_logfile = None
     if args.history:
         if args.log_mode == 'per_action':
             action_logfile = open(args.history, 'w')
-            # 従来の詳細ログ（ヘッダは旧フォーマットに合わせる）
-            print('score,hand_length,p_hand_is_nbj,p_hand_is_busted,d_hand_1,'
-                  'remaining_2_6,remaining_7_9,remaining_10_K,remaining_A,'
-                  'money_bin,action,reward,result', file=action_logfile)
+            print('score,hand_length,p_hand_1,p_hand_2,p_hand_is_nbj,p_hand_is_busted,d_hand_1,d_hand_length,' + \
+                'remaining_A,remaining_2,remaining_3,remaining_4,remaining_5,remaining_6,remaining_7,remaining_8,remaining_9,remaining_10,remaining_J,remaining_Q,remaining_K,' + \
+                'money,action,reward,status', file=action_logfile)
         else:
             game_logfile = open(args.history, 'w')
             print('game_id,result,reward', file=game_logfile)
 
-    # n_games回ゲームを実行（進捗tqdm）
+    # n_games回ゲームを実行
     for n in tqdm(range(1, n_games)):
+
         # 残りカード数
         remaining_cards = RemainingCards(N_DECKS)
 
@@ -566,7 +588,7 @@ def main():
         game_start(n, remaining_cards=remaining_cards)
 
         # 「現在の状態」を取得
-        state = get_state(remaining_cards=remaining_cards)
+        state = get_state(remainng_cards=remaining_cards)
 
         while True:
 
@@ -580,56 +602,47 @@ def main():
                 action = np.random.choice([
                     Action.HIT, Action.STAND, Action.DOUBLE_DOWN, Action.SURRENDER
                 ])
+            action_name = get_action_name(action) # 行動名を表す文字列を取得
 
-            # 行動実行
+            # 選択した行動を実際に実行
+            # 戻り値:
+            #   - done: 終了フラグ．今回の行動によりゲームが終了したか否か（終了した場合はTrue, 続行中ならFalse）
+            #   - reward: 獲得金額（ゲーム続行中の場合は 0 , ただし RETRY を実行した場合は1回につき -BET/4 ）
+            #   - status: 行動実行後のプレイヤーステータス（バーストしたか否か，勝ちか負けか，などの状態を表す文字列）
             reward, done, status = act(action)
 
-            # RETRY回数カウント
+            # 実行した行動がRETRYだった場合はRETRY回数カウンターを1増やす
             if action == Action.RETRY:
                 g_retry_counter += 1
 
-            # 次状態
-            prev_state = state
-            state = get_state(remaining_cards=remaining_cards)
+            # 「現在の状態」を再取得
+            prev_state = state # 行動前の状態を別変数に退避
+            prev_score = prev_state[0] # 行動前のプレイヤー手札のスコア（prev_state の一つ目の要素）
+            state = get_state(remainng_cards=remaining_cards)
+            score = state[0] # 行動後のプレイヤー手札のスコア（state の一つ目の要素）
 
             # 学習（経験の追加と更新）
             if not args.testmode:
-                # 中間報酬: スコアの改善があれば小さな正の報酬を与える
-                # state のスコアは正規化済み (0-1), 実スコア差は *21 で復元
-                score_diff = (state[0] - prev_state[0]) * 21.0
-                bonus = 0.0
-                if score_diff > 0:
-                    bonus = 0.05 * score_diff
-                total_reward = reward + bonus
-
-                a_idx = action_to_index(action)
-                agent.add_experience(prev_state, a_idx, total_reward, state, done)
-                agent.update()
-                # εを行動単位で減衰
-                agent.decay_epsilon_step()
-
-            # per_action ログ（行動ごと）
-            if action_logfile:
-                # 出力は旧フォーマットに合わせて値を落とす（必要に応じて拡張可）
                 try:
-                    score_out = prev_state[0]
-                    hand_len_out = prev_state[1]
-                    p_nbj = int(prev_state[2])
-                    p_bst = int(prev_state[3])
-                    d_hand_1_out = int(round(prev_state[4]*12))
-                    rem2 = int(round(prev_state[5]* (5*4*N_DECKS)))
-                    rem7 = int(round(prev_state[6]* (3*4*N_DECKS)))
-                    rem10 = int(round(prev_state[7]* (4*4*N_DECKS)))
-                    remA = int(round(prev_state[8]* (1*4*N_DECKS)))
-                    money_out = int(round(prev_state[9]*4))
-                except Exception:
-                    # フォールバック: 出力不可なら空欄で出す
-                    score_out = hand_len_out = p_nbj = p_bst = d_hand_1_out = 0
-                    rem2 = rem7 = rem10 = remA = money_out = 0
-                print('{},{},{},{},{},{},{},{},{},{},{},{}'.format(
-                    score_out, hand_len_out, p_nbj, p_bst, d_hand_1_out,
-                    rem2, rem7, rem10, remA, money_out,
-                    get_action_name(action), reward
+                    a_idx = action_to_index(action)
+                    agent.add_experience(prev_state, a_idx, reward, state, done)
+                    agent.update()
+                except Exception as e:
+                    # 学習エラーはログに流しつつゲーム続行
+                    print(f"[LEARN-ERROR] {e}")
+
+            # per_action ログ
+            if action_logfile:
+                print('{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24}'.format(
+                    prev_state[0], prev_state[1], prev_state[2], prev_state[3], prev_state[4], prev_state[5],
+                    prev_state[6], prev_state[7],
+                    prev_state[8], prev_state[9], prev_state[10], prev_state[11], prev_state[12],
+                    prev_state[13], prev_state[14], prev_state[15], prev_state[16], prev_state[17],
+                    prev_state[18], prev_state[19], prev_state[20],
+                    prev_state[21],
+                    action_name,
+                    reward,
+                    status
                 ), file=action_logfile)
 
             # per_game ログ（終了時のみ）
@@ -650,21 +663,28 @@ def main():
                         res = None
                     if res is not None:
                         print(f"{n},{res},{r}", file=game_logfile)
-
-            if done:
+            # 終了フラグが立った場合はnゲーム目を終了
+            if done == True:
                 break
 
-    # εは行動単位で減衰しているため，ここでは何もしない
-    pass
+        print('')
 
-    if game_logfile:
-        game_logfile.close()
+    # エピソード終了ごとにεを減衰
+        if not args.testmode:
+            agent.set_epsilon()
+
+        print('')
+
+    # ログファイルを閉じる
     if action_logfile:
         action_logfile.close()
+    if game_logfile:
+        game_logfile.close()
 
     # 学習済みモデルを保存
-    if not args.testmode and args.save:
-        agent.save_model(args.save)
+    if not args.testmode:
+        if args.save != '':
+            agent.save_model()
 
 
 if __name__ == '__main__':

@@ -5,12 +5,10 @@ import numpy as np
 from classes import Action, Strategy, RemainingCards, Player, get_card_info, get_action_name
 from config import PORT, BET, INITIAL_MONEY, N_DECKS
 import torch
-from typing import NamedTuple, Union, Tuple, Optional
+from typing import NamedTuple, Union, Tuple
 import random
 from collections import deque
 from tqdm import tqdm
-import optuna
-from optuna.trial import Trial
 
 # 1ゲームあたりのRETRY回数の上限(変更不可)
 RETRY_MAX = 10
@@ -30,15 +28,15 @@ soc = None
 g_remaining_cards: RemainingCards | None = None
 
 # ハイパーパラメータ
-TOTAL_GAMES = 1000 # 総ゲーム数
-BUFFER_SIZE = 10000 # 経験再生バッファのサイズ
+TOTAL_GAMES = 10000 # 総ゲーム数
+BUFFER_SIZE = 12000 # 経験再生バッファのサイズ
 BATCH_SIZE = 32 # ミニバッチサイズ
 STATE_SIZE = 10 # 状態の次元数（score,length,nbj,busted,d_up,rem4(4),money_bin）
 ACTION_SIZE = 5 # 行動の種類数
-TARGET_UPDATE_FREQ = 400 # ターゲットネットワークの更新頻度（ステップ単位）
-EPS = 0.15 # ε-greedyにおけるε
-LEARNING_RATE = 0.0002 # 学習率（DQN用に小さめ）
-DISCOUNT_FACTOR = 0.97 # 割引率
+TARGET_UPDATE_FREQ = 500 # ターゲットネットワークの更新頻度（ステップ単位）
+EPS = 0.07847637379690389 # ε-greedyにおけるε
+LEARNING_RATE = 0.00048823132390147015 # 学習率（DQN用に小さめ）
+DISCOUNT_FACTOR = 0.9506584780356756 # 割引率
 
 # ログ制御: train はプログレスバーのみ表示するため False
 VERBOSE = False
@@ -96,37 +94,6 @@ def action_to_index(a: Action) -> int:
     }
     return mapping[a]
 
-
-class EarlyStopping:
-    """早期終了を管理するクラス"""
-    def __init__(self, patience: int = 100, min_delta: float = 0.001):
-        self.patience = patience  # 改善が見られない許容ゲーム数
-        self.min_delta = min_delta  # 改善と見なす最小変化量
-        self.counter = 0
-        self.best_score = -float('inf')
-        self.early_stop = False
-        self.best_model_state = None
-        
-    def __call__(self, current_score: float, model_state: dict) -> bool:
-        """
-        現在のスコアをチェックして早期終了すべきか判定
-        Returns: True if should stop, False otherwise
-        """
-        if current_score > self.best_score + self.min_delta:
-            self.best_score = current_score
-            self.counter = 0
-            self.best_model_state = model_state
-        else:
-            self.counter += 1
-            if self.counter >= self.patience:
-                self.early_stop = True
-                return True
-        return False
-    
-    def get_best_model(self):
-        return self.best_model_state
-
-
 class TorchTensor(NamedTuple):
     state: torch.Tensor
     action: torch.Tensor
@@ -135,19 +102,10 @@ class TorchTensor(NamedTuple):
     done: torch.Tensor
 
 
-class PrioritizedExperienceReplayBuffer:
-    """Prioritized Experience Replay with Sum Tree for efficient sampling"""
-    def __init__(self, buffer_size: int=10000, batch_size: int = 64, alpha: float = 0.6, beta: float = 0.4):
-        self.buffer_size = buffer_size
+class ExperienceReplayBuffer:
+    def __init__(self, buffer_size: int=10000, batch_size: int = 64):
+        self.buffer = deque(maxlen=buffer_size)
         self.batch_size = batch_size
-        self.alpha = alpha  # 優先度の重要度 (0=uniform, 1=full prioritization)
-        self.beta = beta    # importance sampling の補正
-        self.beta_increment = 0.001  # βを徐々に1.0に近づける
-        
-        self.buffer = []
-        self.priorities = np.zeros(buffer_size, dtype=np.float32)
-        self.position = 0
-        self.size = 0
         
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
@@ -159,37 +117,10 @@ class PrioritizedExperienceReplayBuffer:
         next_state: Union[np.ndarray, Tuple],
         done: bool,
         ) -> None:
-        # 新しい経験には最大優先度を付与
-        max_priority = self.priorities.max() if self.size > 0 else 1.0
+        self.buffer.append((state, action, reward, next_state, done))
         
-        if len(self.buffer) < self.buffer_size:
-            self.buffer.append((state, action, reward, next_state, done))
-        else:
-            self.buffer[self.position] = (state, action, reward, next_state, done)
-        
-        self.priorities[self.position] = max_priority
-        self.position = (self.position + 1) % self.buffer_size
-        self.size = min(self.size + 1, self.buffer_size)
-        
-    def get(self) -> Tuple[TorchTensor, np.ndarray, np.ndarray]:
-        # 優先度に基づいてサンプリング
-        if self.size < self.batch_size:
-            return None, None, None
-            
-        priorities = self.priorities[:self.size]
-        probs = priorities ** self.alpha
-        probs /= probs.sum()
-        
-        indices = np.random.choice(self.size, self.batch_size, p=probs, replace=False)
-        
-        # Importance Sampling weights
-        weights = (self.size * probs[indices]) ** (-self.beta)
-        weights /= weights.max()  # 正規化
-        
-        # βを徐々に増加
-        self.beta = min(1.0, self.beta + self.beta_increment)
-        
-        data = [self.buffer[idx] for idx in indices]
+    def get(self) -> TorchTensor:
+        data = random.sample(self.buffer, self.batch_size)
         
         batch_data = (
             np.stack([x[0] for x in data]).astype(np.float32), # state
@@ -199,23 +130,16 @@ class PrioritizedExperienceReplayBuffer:
             np.array([x[4] for x in data]).astype(np.int32), # done
         )
         
-        return TorchTensor(*tuple(map(self.to_torch, batch_data))), indices, weights
-    
-    def update_priorities(self, indices: np.ndarray, td_errors: np.ndarray) -> None:
-        """TD誤差に基づいて優先度を更新"""
-        for idx, td_error in zip(indices, td_errors):
-            self.priorities[idx] = abs(td_error) + 1e-6  # 小さな定数でゼロ除算を防ぐ
+        return TorchTensor(*tuple(map(self.to_torch, batch_data)))
         
     def to_torch(self, array: np.ndarray) -> torch.Tensor:
         return torch.tensor(array, dtype=torch.float32, device=self.device)   
 
 
 class DuelingQNetwork(torch.nn.Module):
-    """Dueling DQN: shared body with 3 layers, Batch Normalization, and Dropout."""
-    def __init__(self, state_size: int, action_size: int, dropout_rate: float = 0.22601768007258272):
+    """Dueling DQN: shared body, separate value and advantage streams."""
+    def __init__(self, state_size: int, action_size: int):
         super(DuelingQNetwork, self).__init__()
-        
-        # Use the original simpler dueling architecture (no BatchNorm/Dropout)
         hid = 256
         self.shared1 = torch.nn.Linear(state_size, hid)
         self.shared2 = torch.nn.Linear(hid, hid)
@@ -224,20 +148,17 @@ class DuelingQNetwork(torch.nn.Module):
         self.value_fc = torch.nn.Linear(hid, 128)
         self.value_out = torch.nn.Linear(128, 1)
 
-        # advantage stream (match original implementation)
+        # advantage stream
         self.adv_fc = torch.nn.Linear(hid, 128)
         self.adv_out = torch.nn.Linear(128, action_size)
 
     def forward(self, x):
-        # shared body (two layers)
         x = torch.relu(self.shared1(x))
         x = torch.relu(self.shared2(x))
 
-        # Value stream
         v = torch.relu(self.value_fc(x))
         v = self.value_out(v)
 
-        # Advantage stream
         a = torch.relu(self.adv_fc(x))
         a = self.adv_out(a)
 
@@ -258,7 +179,7 @@ class Agent:
         # εはステップ単位で減衰させる（ゲームごとではなく行動ごと）
         self.epsilon_decay = (epsilon - epsilon_min) / (TOTAL_GAMES * 20)
 
-        self.replay = PrioritizedExperienceReplayBuffer(buffer_size=buffer_size, batch_size=BATCH_SIZE)
+        self.replay = ExperienceReplayBuffer(buffer_size=buffer_size, batch_size=BATCH_SIZE)
         self.data = None
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -281,46 +202,28 @@ class Agent:
         return q_c.detach().argmax().item()
     
     def update(self) -> None:
-        """経験再生バッファからサンプルして1ステップ学習を行う（Double DQN + Prioritized Experience Replay対応）"""
-        if self.replay.size < self.batch_size:
+        """経験再生バッファからサンプルして1ステップ学習を行う"""
+        if len(self.replay.buffer) < self.batch_size:
             return
 
-        self.data, indices, weights = self.replay.get()
-        if self.data is None:
-            return
+        self.data = self.replay.get()
 
         # Q(s, a) の抽出
         q_values = self.original_q_network(self.data.state)
         actions = self.data.action.long()  # gather用に整数化
         q_sa = q_values[torch.arange(self.batch_size), actions]
 
-        # Double DQN: オンラインネットワークで行動選択、ターゲットネットワークで評価
+        # ターゲット値の計算
         with torch.no_grad():
-            # オンラインネットワークで次状態の最適行動を選択
-            next_q_values_online = self.original_q_network(self.data.next_state)
-            next_actions = next_q_values_online.argmax(1)
-            
-            # ターゲットネットワークでその行動のQ値を評価
-            next_q_values_target = self.target_q_network(self.data.next_state)
-            next_q_max = next_q_values_target[torch.arange(self.batch_size), next_actions]
-            
+            next_q_values = self.target_q_network(self.data.next_state)
+            next_q_max = next_q_values.max(1)[0]
             target = self.data.reward + (1 - self.data.done) * self.gamma * next_q_max
 
-        # TD誤差を計算（優先度更新用）
-        td_errors = (q_sa - target).detach().cpu().numpy()
-        
-        # Importance Sampling weightsを適用
-        weights_tensor = torch.tensor(weights, dtype=torch.float32, device=self.device)
-        loss = (weights_tensor * (q_sa - target) ** 2).mean()
-        
+        loss_function = torch.nn.MSELoss()
+        loss = loss_function(q_sa, target)
         self.optimizer.zero_grad()
         loss.backward()
-        # 勾配クリッピングを追加して学習を安定化
-        torch.nn.utils.clip_grad_norm_(self.original_q_network.parameters(), max_norm=1.0)
         self.optimizer.step()
-        
-        # 優先度を更新
-        self.replay.update_priorities(indices, td_errors)
 
         # ターゲットネットの定期同期
         self.learn_steps += 1
@@ -592,9 +495,7 @@ def select_action(state, strategy: Strategy, agent: Agent=None):
     # Q値最大行動を選択する戦略
     if strategy == Strategy.QMAX:
         state_tensor = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
-        agent.original_q_network.eval() # Set to evaluation mode
         q_vals = agent.original_q_network(state_tensor).detach().cpu().numpy()[0]
-        agent.original_q_network.train() # Set back to training mode
         mask = get_valid_action_mask_from_state(state)
         q_vals_masked = np.copy(q_vals)
         q_vals_masked[~mask] = -1e9
@@ -609,9 +510,7 @@ def select_action(state, strategy: Strategy, agent: Agent=None):
             return index_to_action(int(chosen))
         else:
             state_tensor = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
-            agent.original_q_network.eval() # Set to evaluation mode
             q_vals = agent.original_q_network(state_tensor).detach().cpu().numpy()[0]
-            agent.original_q_network.train() # Set back to training mode
             mask = get_valid_action_mask_from_state(state)
             q_vals[~mask] = -1e9
             return index_to_action(int(np.argmax(q_vals)))
@@ -642,28 +541,42 @@ def get_valid_action_mask_from_state(state: np.ndarray) -> np.ndarray:
 
 ### ここから処理開始 ###
 
-def train_episode(agent, n_games, args, early_stopping=None):
-    """1エピソードの学習を実行"""
+def main():
     global g_retry_counter, player, soc
-    
-    # ログファイル
+
+    parser = argparse.ArgumentParser(description='AI Black Jack Player (DQN train)')
+    parser.add_argument('--games', type=int, default=TOTAL_GAMES, help='num. of games to play')
+    parser.add_argument('--history', type=str, default='', help='(optional) CSV file to save transitions or game summaries')
+    parser.add_argument('--log-mode', type=str, choices=('per_action', 'per_game'), default='per_game', help='logging mode: per_action (old) or per_game (summary)')
+    parser.add_argument('--load', type=str, default='', help='filename of model to be loaded before learning')
+    parser.add_argument('--save', type=str, default='dqn_model.pth', help='filename to save trained model')
+    parser.add_argument('--testmode', action='store_true', help='run without learning (greedy)')
+    args = parser.parse_args()
+
+    n_games = (TOTAL_GAMES if args.games == -1 else args.games) + 1
+
+    # エージェント構築
+    agent = Agent(STATE_SIZE, ACTION_SIZE, LEARNING_RATE, DISCOUNT_FACTOR, EPS, buffer_size=BUFFER_SIZE)
+
+    # 学習済みモデルの読み込み
+    if args.load:
+        agent.original_q_network.load_state_dict(torch.load(args.load))
+        agent.sync_net()
+
+    # オプションのCSV: per_action（従来）/ per_game（1行=1ゲーム）を切替
     action_logfile = None
     game_logfile = None
     if args.history:
         if args.log_mode == 'per_action':
             action_logfile = open(args.history, 'w')
+            # 従来の詳細ログ（ヘッダは旧フォーマットに合わせる）
             print('score,hand_length,p_hand_is_nbj,p_hand_is_busted,d_hand_1,'
                   'remaining_2_6,remaining_7_9,remaining_10_K,remaining_A,'
                   'money_bin,action,reward,result', file=action_logfile)
         else:
             game_logfile = open(args.history, 'w')
             print('game_id,result,reward', file=game_logfile)
-    
-    # 勝率計算用
-    win_count = 0
-    total_count = 0
-    recent_wins = deque(maxlen=1000)  # 直近1000ゲームの勝敗
-    
+
     # n_games回ゲームを実行（進捗tqdm）
     for n in tqdm(range(1, n_games)):
         # 残りカード数
@@ -675,8 +588,6 @@ def train_episode(agent, n_games, args, early_stopping=None):
         # 「現在の状態」を取得
         state = get_state(remaining_cards=remaining_cards)
 
-        game_reward = 0
-
         while True:
 
             # 次に実行する行動を選択
@@ -685,6 +596,7 @@ def train_episode(agent, n_games, args, early_stopping=None):
             else:
                 action = select_action(state, Strategy.E_GREEDY, agent)
             if g_retry_counter >= RETRY_MAX and action == Action.RETRY:
+                # RETRY回数が上限に達しているにもかかわらずRETRYが選択された場合，他の行動をランダムに選択
                 action = np.random.choice([
                     Action.HIT, Action.STAND, Action.DOUBLE_DOWN, Action.SURRENDER
                 ])
@@ -702,56 +614,23 @@ def train_episode(agent, n_games, args, early_stopping=None):
 
             # 学習（経験の追加と更新）
             if not args.testmode:
-                # 改善された報酬設計
-                total_reward = reward
-                
-                # 1. スコア改善ボーナス（21に近づく）
+                # 中間報酬: スコアの改善があれば小さな正の報酬を与える
+                # state のスコアは正規化済み (0-1), 実スコア差は *21 で復元
                 score_diff = (state[0] - prev_state[0]) * 21.0
-                if score_diff > 0 and not done:
-                    current_score = state[0] * 21.0
-                    if current_score >= 17 and current_score <= 21:
-                        total_reward += 0.2
-                    else:
-                        total_reward += 0.1 * score_diff
-                
-                # 2. ブラックジャック達成ボーナス
-                if prev_state[2] == 0 and state[2] == 1:
-                    total_reward += 0.5
-                
-                # 3. バースト回避報酬（17-20の安全圏でSTAND）
-                if action == Action.STAND and not done:
-                    current_score = state[0] * 21.0
-                    if 17 <= current_score <= 20:
-                        total_reward += 0.15
-                
-                # 4. 危険な状況でのペナルティ
-                if state[3] == 1:
-                    total_reward -= 0.3
-                elif action == Action.HIT:
-                    current_score = state[0] * 21.0
-                    if current_score >= 17:
-                        total_reward -= 0.05 * (current_score - 16)
-                
-                # 5. DOUBLE_DOWNの戦略的報酬
-                if action == Action.DOUBLE_DOWN:
-                    prev_score = prev_state[0] * 21.0
-                    if 9 <= prev_score <= 11:
-                        total_reward += 0.1
-                
-                # 6. 終了時の勝敗に基づく大きな報酬
-                if done:
-                    if reward > 0:
-                        total_reward += 1.0
-                    elif reward < 0:
-                        total_reward -= 0.5
+                bonus = 0.0
+                if score_diff > 0:
+                    bonus = 0.05 * score_diff
+                total_reward = reward + bonus
 
                 a_idx = action_to_index(action)
                 agent.add_experience(prev_state, a_idx, total_reward, state, done)
                 agent.update()
+                # εを行動単位で減衰
                 agent.decay_epsilon_step()
 
             # per_action ログ（行動ごと）
             if action_logfile:
+                # 出力は旧フォーマットに合わせて値を落とす（必要に応じて拡張可）
                 try:
                     score_out = prev_state[0]
                     hand_len_out = prev_state[1]
@@ -764,6 +643,7 @@ def train_episode(agent, n_games, args, early_stopping=None):
                     remA = int(round(prev_state[8]* (1*4*N_DECKS)))
                     money_out = int(round(prev_state[9]*4))
                 except Exception:
+                    # フォールバック: 出力不可なら空欄で出す
                     score_out = hand_len_out = p_nbj = p_bst = d_hand_1_out = 0
                     rem2 = rem7 = rem10 = remA = money_out = 0
                 print('{},{},{},{},{},{},{},{},{},{},{},{}'.format(
@@ -775,161 +655,36 @@ def train_episode(agent, n_games, args, early_stopping=None):
             # per_game ログ（終了時のみ）
             if done and game_logfile:
                 status_l = str(status).lower() if status is not None else ''
-                if 'unsettled' not in status_l and 'retry' not in status_l:
+                if 'unsettled' in status_l or 'retry' in status_l:
+                    pass
+                else:
                     try:
                         r = float(reward)
                     except Exception:
                         r = 0.0
                     if r > 0.0:
                         res = 'win'
-                        recent_wins.append(1)
                     elif r < 0.0:
                         res = 'lose'
-                        recent_wins.append(0)
                     else:
                         res = None
                     if res is not None:
                         print(f"{n},{res},{r}", file=game_logfile)
 
             if done:
-                game_reward = reward
                 break
-        
-        # 勝率計算
-        if game_reward > 0:
-            win_count += 1
-        total_count += 1
-        
-        # 早期終了チェック（100ゲームごと）
-        if early_stopping and n % 100 == 0 and len(recent_wins) >= 100:
-            win_rate = sum(recent_wins) / len(recent_wins)
-            model_state = copy.deepcopy(agent.original_q_network.state_dict())
-            if early_stopping(win_rate, model_state):
-                print(f"\n早期終了: {n}ゲーム後, 最良勝率: {early_stopping.best_score:.4f}")
-                break
+
+    # εは行動単位で減衰しているため，ここでは何もしない
+    pass
 
     if game_logfile:
         game_logfile.close()
     if action_logfile:
         action_logfile.close()
-    
-    # 最終勝率は直近1000ゲームのみで算出する
-    if len(recent_wins) > 0:
-        final_win_rate = sum(recent_wins) / len(recent_wins)
-    else:
-        # まだ recent_wins にデータが無ければ全体から計算（保険）
-        final_win_rate = win_count / total_count if total_count > 0 else 0.0
-    return final_win_rate
 
-
-def objective(trial: Trial):
-    """Optuna目的関数"""
-    global player
-    
-    # ハイパーパラメータの探索空間
-    learning_rate = trial.suggest_float('learning_rate', 1e-5, 1e-2, log=True)
-    discount_factor = trial.suggest_float('discount_factor', 0.95, 0.99)
-    epsilon = trial.suggest_float('epsilon', 0.1, 0.5)
-    buffer_size = trial.suggest_int('buffer_size', 5000, 20000, step=5000)
-    batch_size = trial.suggest_categorical('batch_size', [32, 64, 128])
-    target_update_freq = trial.suggest_int('target_update_freq', 100, 500, step=100)
-    dropout_rate = trial.suggest_float('dropout_rate', 0.1, 0.3)
-    
-    # プレイヤーをリセット
-    player = Player(initial_money=INITIAL_MONEY, basic_bet=BET)
-    
-    # エージェント構築
-    class Args:
-        testmode = False
-        history = ''
-        log_mode = 'per_game'
-    args = Args()
-    
-    # エージェント作成（グローバル変数を一時的に上書き）
-    agent = Agent(STATE_SIZE, ACTION_SIZE, learning_rate, discount_factor, epsilon, buffer_size=buffer_size)
-    
-    # 早期終了設定
-    early_stopping = EarlyStopping(patience=200, min_delta=0.01)
-    
-    # 学習実行
-    win_rate = train_episode(agent, 12001, args, early_stopping=early_stopping)
-    
-    return win_rate
-
-
-def main():
-    global g_retry_counter, player, soc
-
-    parser = argparse.ArgumentParser(description='AI Black Jack Player (DQN train)')
-    parser.add_argument('--games', type=int, default=TOTAL_GAMES, help='num. of games to play')
-    parser.add_argument('--history', type=str, default='', help='(optional) CSV file to save transitions or game summaries')
-    parser.add_argument('--log-mode', type=str, choices=('per_action', 'per_game'), default='per_game', help='logging mode: per_action (old) or per_game (summary)')
-    parser.add_argument('--load', type=str, default='', help='filename of model to be loaded before learning')
-    parser.add_argument('--save', type=str, default='dqn_model.pth', help='filename to save trained model')
-    parser.add_argument('--testmode', action='store_true', help='run without learning (greedy)')
-    parser.add_argument('--optuna', action='store_true', help='run hyperparameter optimization with Optuna')
-    parser.add_argument('--optuna-trials', type=int, default=20, help='number of Optuna trials')
-    parser.add_argument('--early-stopping', action='store_true', help='enable early stopping')
-    parser.add_argument('--patience', type=int, default=200, help='patience for early stopping')
-    args = parser.parse_args()
-
-    # Optunaモード
-    if args.optuna:
-        print("Optunaによるハイパーパラメータ探索を開始します...")
-        study = optuna.create_study(direction='maximize', study_name='blackjack_dqn')
-        study.optimize(objective, n_trials=args.optuna_trials)
-        
-        print("\n=== 最適なハイパーパラメータ ===")
-        print(study.best_params)
-        print(f"最良勝率: {study.best_value:.4f}")
-        
-        # 最適なパラメータで最終モデルを学習
-        print("\n最適なハイパーパラメータで最終学習を実行...")
-        best_params = study.best_params
-        agent = Agent(
-            STATE_SIZE, ACTION_SIZE,
-            best_params['learning_rate'],
-            best_params['discount_factor'],
-            best_params['epsilon'],
-            buffer_size=best_params['buffer_size']
-        )
-        player = Player(initial_money=INITIAL_MONEY, basic_bet=BET)
-        win_rate = train_episode(agent, args.games + 1, args)
-        print(f"最終勝率: {win_rate:.4f}")
-        
-        if args.save:
-            agent.save_model(args.save)
-            print(f"モデルを {args.save} に保存しました")
-        return
-
-    # 通常の学習モード
-    n_games = (TOTAL_GAMES if args.games == -1 else args.games) + 1
-
-    # エージェント構築
-    agent = Agent(STATE_SIZE, ACTION_SIZE, LEARNING_RATE, DISCOUNT_FACTOR, EPS, buffer_size=BUFFER_SIZE)
-
-    # 学習済みモデルの読み込み
-    if args.load:
-        agent.original_q_network.load_state_dict(torch.load(args.load))
-        agent.sync_net()
-    
-    # 早期終了設定
-    early_stopping = None
-    if args.early_stopping:
-        early_stopping = EarlyStopping(patience=args.patience, min_delta=0.01)
-        print(f"早期終了を有効化（patience={args.patience}）")
-
-    # 学習実行
-    win_rate = train_episode(agent, n_games, args, early_stopping=early_stopping)
-    print(f"\n最終勝率: {win_rate:.4f}")
-    
-    # 早期終了した場合、最良モデルを復元
-    if early_stopping and early_stopping.early_stop:
-        best_model = early_stopping.get_best_model()
-        if best_model:
-            agent.original_q_network.load_state_dict(best_model)
-            print(f"最良モデルを復元しました（勝率: {early_stopping.best_score:.4f}）")
-
+    # 学習済みモデルを保存
+    if not args.testmode and args.save:
+        agent.save_model(args.save)
 
 
 if __name__ == '__main__':

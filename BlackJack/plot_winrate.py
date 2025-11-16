@@ -18,6 +18,7 @@ from typing import List
 
 import numpy as np
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 
 
 def read_results(csv_path: str, result_col: str = "result", skip_unsettled: bool = True) -> np.ndarray:
@@ -74,7 +75,7 @@ def read_results(csv_path: str, result_col: str = "result", skip_unsettled: bool
     return np.array(values, dtype=float)
 
 
-def sliding_win_rate(arr: np.ndarray, window: int) -> (np.ndarray, np.ndarray):
+def sliding_win_rate(arr: np.ndarray, window: int) -> tuple[np.ndarray, np.ndarray]:
     n = arr.size
     if n == 0:
         return np.array([]), np.array([])
@@ -91,7 +92,7 @@ def sliding_win_rate(arr: np.ndarray, window: int) -> (np.ndarray, np.ndarray):
     return x, rates
 
 
-def cumulative_win_rate(arr: np.ndarray) -> (np.ndarray, np.ndarray):
+def cumulative_win_rate(arr: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     n = arr.size
     if n == 0:
         return np.array([]), np.array([])
